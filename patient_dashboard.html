@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health Dashboard - DHRMS</title>
+    <link rel="stylesheet" href="patient_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kerala_Government_Logo.svg/1200px-Kerala_Government_Logo.svg.png" alt="Logo" class="logo-small">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-file-medical"></i> Medical History</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-folder-open"></i> My Documents</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-headset"></i> Helpline</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-button-full">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header-content">
+                <h1>Welcome, Rahul Kumar</h1>
+                <p>Here is a summary of your health record.</p>
+            </header>
+
+            <section class="profile-summary-card">
+                <div class="profile-photo">
+                    <img src="https://i.imgur.com/T5f2v2s.png" alt="Patient Photo">
+                </div>
+                <div class="profile-details">
+                    <h2>Rahul Kumar</h2>
+                    <p><strong>Health ID:</strong> KMW-2025-8451</p>
+                    <div class="details-grid">
+                        <p><strong>Age:</strong> 32</p>
+                        <p><strong>Gender:</strong> Male</p>
+                        <p><strong>Blood Group:</strong> O+</p>
+                        <p><strong>Contact:</strong> 98********</p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <a href="#" class="btn btn-primary"><i class="fa-solid fa-id-card"></i> Download Health ID</a>
+                    <a href="#" class="btn btn-secondary">Update Profile</a>
+                </div>
+            </section>
+
+            <section class="dashboard-grid patient-grid">
+                <div class="grid-card">
+                    <h3><i class="fa-solid fa-calendar-alt"></i> Upcoming Appointment</h3>
+                    <div class="appointment-details">
+                        <p><strong>Doctor:</strong> Dr. Priya Nair (General Physician)</p>
+                        <p><strong>Date:</strong> 20th September 2025, 10:00 AM</p>
+                        <p><strong>Location:</strong> Primary Health Centre, Aluva</p>
+                        <p><strong>Reason:</strong> Follow-up for fever</p>
+                    </div>
+                    <a href="#" class="card-link">Manage Appointments</a>
+                </div>
+
+                <div class="grid-card">
+                    <h3><i class="fa-solid fa-bell"></i> Health Alerts & Reminders</h3>
+                    <ul class="alerts-list">
+                        <li><i class="fa-solid fa-triangle-exclamation"></i> Follow-up for fever check is due.</li>
+                        <li><i class="fa-solid fa-syringe"></i> Tetanus (TT) booster dose recommended.</li>
+                        <li><i class="fa-solid fa-pills"></i> Remember to take your daily medication.</li>
+                    </ul>
+                     <a href="#" class="card-link">View All Alerts</a>
+                </div>
+
+                <div class="grid-card full-width">
+                    <h3><i class="fa-solid fa-notes-medical"></i> Recent Medical History</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date of Visit</th>
+                                <th>Doctor Consulted</th>
+                                <th>Diagnosis / Reason</th>
+                                <th>Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>14 Sep 2025</td>
+                                <td>Dr. Priya Nair</td>
+                                <td>Viral Fever</td>
+                                <td><a href="#" class="btn-view">View Prescription</a></td>
+                            </tr>
+                            <tr>
+                                <td>02 Aug 2025</td>
+                                <td>Dr. S. Menon</td>
+                                <td>Routine Check-up</td>
+                                <td><a href="#" class="btn-view">View Lab Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>15 May 2025</td>
+                                <td>Health Camp</td>
+                                <td>Vaccination (COVID-19 Booster)</td>
+                                <td><a href="#" class="btn-view">View Certificate</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                     <a href="#" class="card-link">View Full Medical History</a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
