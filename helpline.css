@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-green: #006A4E;
+    --secondary-green: #e9f5e9;
+    --background-light: #f4f7f6;
+    --text-dark: #333;
+    --text-light: #666;
+    --border-color: #e0e0e0;
+    --white: #fff;
+    --shadow: 0 5px 15px rgba(0,0,0,0.05);
+    --danger-red: #dc3545;
+    --danger-red-light: #f8d7da;
+}
+
+/* Base and General Styles (Condensed for Brevity) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-dark); }
+.dashboard-container { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.sidebar { background-color: var(--white); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px; }
+.nav-link { text-decoration: none; color: var(--text-light); font-weight: 500; padding: 12px 15px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { background-color: var(--primary-green); color: var(--white); }
+.main-content { padding: 30px; }
+.main-header-content h1 { font-size: 2rem; }
+.main-header-content p { color: var(--text-light); }
+.btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;}
+.btn-primary { background-color: var(--primary-green); color: var(--white); }
+
+/* ==================== NEW Helpline Page Styles ==================== */
+.helpline-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+    border-left: 5px solid var(--primary-green);
+}
+.helpline-card.emergency {
+    border-left-color: var(--danger-red);
+    background-color: var(--danger-red-light);
+}
+.helpline-icon {
+    font-size: 3rem;
+    color: var(--primary-green);
+}
+.helpline-card.emergency .helpline-icon {
+    color: var(--danger-red);
+}
+.helpline-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+.helpline-info p {
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+.helpline-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-decoration: none;
+    display: block;
+}
+.helpline-info span {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.accordion-container {
+    margin-top: 40px;
+}
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+.accordion {
+    max-width: 100%;
+    margin-bottom: 30px;
+}
+.accordion-button {
+    background-color: var(--white);
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    outline: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.accordion-button:hover, .accordion-button.active {
+    background-color: var(--secondary-green);
+}
+.accordion-button::after {
+    content: '\f078'; /* Font Awesome chevron-down */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--primary-green);
+    transition: transform 0.3s ease;
+}
+.accordion-button.active::after {
+    transform: rotate(180deg); /* chevron-up */
+}
+.accordion-content {
+    padding: 0 18px;
+    background-color: var(--white);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    border-bottom: 1px solid var(--border-color);
+}
+.accordion-content p {
+    padding: 15px 0;
+    line-height: 1.6;
+}
+.accordion-content a {
+    color: var(--primary-green);
+    font-weight: 600;
+    text-decoration: none;
+}
+.accordion-content a:hover {
+    text-decoration: underline;
+}
+
+/* ==================== Responsive Styles ==================== */
+@media (max-width: 992px) { .dashboard-container { grid-template-columns: 1fr; } .sidebar { display: none; } }
+@media (max-width: 768px) { .helpline-card { flex-direction: column; text-align: center; } }

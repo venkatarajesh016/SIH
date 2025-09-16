@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - DHRMS</title>
+    <link rel="stylesheet" href="my_appointments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kerala_Government_Logo.svg/1200px-Kerala_Government_Logo.svg.png" alt="Logo" class="logo-small">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="patient_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="medical_history.html" class="nav-link"><i class="fa-solid fa-file-medical"></i> Medical History</a>
+                <a href="my_appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                <a href="my_documents.html" class="nav-link"><i class="fa-solid fa-folder-open"></i> My Documents</a>
+                <a href="edit_profile.html" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                <a href="helpline.html" class="nav-link"><i class="fa-solid fa-headset"></i> Helpline</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-button-full">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-title-header">
+                <h1>My Appointments</h1>
+                <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Schedule New Appointment</button>
+            </header>
+
+            <div class="tabs">
+                <button class="tab-link active" data-tab="upcoming">Upcoming</button>
+                <button class="tab-link" data-tab="past">Past</button>
+            </div>
+
+            <div id="upcoming" class="tab-content active">
+                <article class="appointment-card">
+                    <div class="appointment-date">
+                        <span>SEP</span>
+                        <strong>20</strong>
+                        <span>2025</span>
+                    </div>
+                    <div class="appointment-details">
+                        <h4>Dr. Priya Nair <span class="specialty">(General Physician)</span></h4>
+                        <p><i class="fa-solid fa-clock"></i> 10:00 AM</p>
+                        <p><i class="fa-solid fa-location-dot"></i> Primary Health Centre, Aluva</p>
+                        <p><i class="fa-solid fa-clipboard"></i> <strong>Reason:</strong> Follow-up for fever</p>
+                    </div>
+                    <div class="appointment-status">
+                        <span class="status-badge status-confirmed">Confirmed</span>
+                        <div class="appointment-actions">
+                            <button class="btn btn-secondary">Reschedule</button>
+                            <button class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="appointment-card">
+                    <div class="appointment-date">
+                        <span>OCT</span>
+                        <strong>05</strong>
+                        <span>2025</span>
+                    </div>
+                    <div class="appointment-details">
+                        <h4>Dr. Anand Verma <span class="specialty">(Dermatologist)</span></h4>
+                        <p><i class="fa-solid fa-clock"></i> 02:30 PM</p>
+                        <p><i class="fa-solid fa-location-dot"></i> District Hospital, Ernakulam</p>
+                        <p><i class="fa-solid fa-clipboard"></i> <strong>Reason:</strong> Skin rash consultation</p>
+                    </div>
+                    <div class="appointment-status">
+                        <span class="status-badge status-confirmed">Confirmed</span>
+                         <div class="appointment-actions">
+                            <button class="btn btn-secondary">Reschedule</button>
+                            <button class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div id="past" class="tab-content">
+                 <article class="appointment-card">
+                    <div class="appointment-date">
+                        <span>SEP</span>
+                        <strong>14</strong>
+                        <span>2025</span>
+                    </div>
+                    <div class="appointment-details">
+                        <h4>Dr. Priya Nair <span class="specialty">(General Physician)</span></h4>
+                        <p><i class="fa-solid fa-clock"></i> 11:30 AM</p>
+                        <p><i class="fa-solid fa-location-dot"></i> Primary Health Centre, Aluva</p>
+                        <p><i class="fa-solid fa-clipboard"></i> <strong>Reason:</strong> Viral Fever</p>
+                    </div>
+                    <div class="appointment-status">
+                        <span class="status-badge status-completed">Completed</span>
+                         <div class="appointment-actions">
+                            <a href="medical_history.html" class="btn btn-primary">View Summary</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = document.querySelector(`#${tab.dataset.tab}`);
+
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                tabContents.forEach(content => content.classList.remove('active'));
+                target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
