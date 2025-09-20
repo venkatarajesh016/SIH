@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,4 +114,120 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Documents - DHRMS</title>
+    <link rel="stylesheet" href="my_documents.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="patient_dashboard.html" class="nav-link"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="medical_history.html" class="nav-link"><i class="fa-solid fa-file-medical"></i> Medical History</a>
+                <a href="my_appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                <a href="my_documents.html" class="nav-link active"><i class="fa-solid fa-folder-open"></i> My Documents</a>
+                <a href="edit_profile.html" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                <a href="helpline.html" class="nav-link"><i class="fa-solid fa-headset"></i> Helpline</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="main1.html" class="logout-button-full">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-title-header">
+                <h1>My Documents</h1>
+                <button class="btn btn-primary"><i class="fa-solid fa-upload"></i> Upload Document</button>
+            </header>
+
+            <section class="filter-controls">
+                <div class="input-group">
+                    <label for="docTypeFilter">Filter by Type</label>
+                    <select id="docTypeFilter">
+                        <option value="all">All Types</option>
+                        <option value="prescription">Prescription</option>
+                        <option value="lab-report">Lab Report</option>
+                        <option value="certificate">Certificate</option>
+                    </select>
+                </div>
+                 <div class="input-group">
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </section>
+
+            <div class="grid-card">
+                 <table class="documents-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-file-lines"></i> Document Name</th>
+                            <th><i class="fa-solid fa-tag"></i> Type</th>
+                            <th><i class="fa-solid fa-calendar-day"></i> Date Added</th>
+                            <th><i class="fa-solid fa-bolt"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="documentsTbody">
+                        <tr data-doc-type="prescription">
+                            <td>Prescription for Viral Fever</td>
+                            <td><span class="doc-badge badge-prescription">Prescription</span></td>
+                            <td>14 Sep 2025</td>
+                            <td><a href="#" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download</a></td>
+                        </tr>
+                        <tr data-doc-type="lab-report">
+                            <td>Complete Blood Count (CBC) Report</td>
+                            <td><span class="doc-badge badge-lab">Lab Report</span></td>
+                            <td>03 Aug 2025</td>
+                            <td><a href="#" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download</a></td>
+                        </tr>
+                        <tr data-doc-type="certificate">
+                            <td>COVID-19 Booster Certificate</td>
+                            <td><span class="doc-badge badge-cert">Certificate</span></td>
+                            <td>15 May 2025</td>
+                            <td><a href="#" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download</a></td>
+                        </tr>
+                        <tr data-doc-type="lab-report">
+                            <td>Urine Routine Examination</td>
+                            <td><span class="doc-badge badge-lab">Lab Report</span></td>
+                            <td>22 Apr 2025</td>
+                            <td><a href="#" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script>
+        const docTypeFilter = document.getElementById('docTypeFilter');
+        const documentsTbody = document.getElementById('documentsTbody');
+        const allRows = documentsTbody.querySelectorAll('tr');
+
+        docTypeFilter.addEventListener('change', function() {
+            const selectedType = this.value;
+
+            allRows.forEach(row => {
+                const docType = row.getAttribute('data-doc-type');
+                if (selectedType === 'all' || selectedType === docType) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            });
+        });
+    </script>
+</body>
+>>>>>>> 42c444e (First commit)
 </html>

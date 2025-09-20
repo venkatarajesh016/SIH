@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Health Record System</title>
+  <style>
+    :root{
+      --brand:#0077b6;
+      --muted:#f1fbff;
+      --accent:#00b894;
+      --card-shadow: 0 6px 20px rgba(2,62,138,0.08);
+      --radius:12px;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fcff;
+      color: #222;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    header{
+      background: var(--brand);
+      color: #fff;
+      padding: 14px 28px;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero{
+      display:flex;
+      gap:48px;
+      justify-content:center;
+      align-items:center;
+      padding:44px 28px;
+      background: linear-gradient(135deg,#caf0f8,#f9fcff);
+      flex-wrap:wrap;
+    }
+    .hero-content{
+      flex:1;
+      max-width:520px;
+      padding-left:10px;
+    }
+    .hero-content h1{ font-size:2.4rem; color:#023e8a; margin:0 0 12px;}
+    .hero-content p{ color:#444; line-height:1.6; margin:0 0 18px;}
+    .role-buttons{ display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;}
+    .role-buttons button{
+      background:var(--brand);
+      color:#fff;
+      border:0;
+      padding:10px 16px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .role-buttons button:hover{ opacity:.92; }
+
+    /* LOGIN */
+    .login-form{
+      flex:0 0 480px;
+      max-width:520px;
+      background:#fff;
+      padding:40px;
+      border-radius:var(--radius);
+      box-shadow:var(--card-shadow);
+      margin-left:30px;
+    }
+    .login-form h2{ color:var(--brand); margin:0 0 14px; text-align:center;}
+    .login-form input{
+      width:100%;
+      padding:12px 14px;
+      margin:10px 0;
+      border-radius:8px;
+      border:1px solid #ddd;
+      font-size:0.98rem;
+    }
+    .login-form .links{ display:flex; justify-content:center; gap:18px; margin-top:8px;}
+    .login-form .links a{ color:var(--brand); text-decoration:none; font-weight:600;}
+    .login-form button[type="submit"]{
+      margin-top:14px;
+      width:100%;
+      padding:13px 16px;
+      border-radius:8px;
+      border:0;
+      background:var(--brand);
+      color:#fff;
+      font-size:1rem;
+      cursor:pointer;
+    }
+
+    /* NEWS */
+    .news-section{
+      padding:64px 20px;
+      text-align:center;
+      background:var(--muted);
+    }
+    .news-section h2{ color:#023e8a; font-size:2rem; margin-bottom:22px;}
+    .news-slider{ position:relative; max-width:1100px; margin:0 auto; }
+    .news-item{
+      display:flex;
+      gap:24px;
+      align-items:center;
+      justify-content:space-between;
+      background:#fff;
+      padding:28px;
+      border-radius:14px;
+      box-shadow:var(--card-shadow);
+      min-height:420px;
+    }
+    .news-item img{
+      width:46%;
+      height:360px;
+      object-fit:cover;
+      border-radius:10px;
+      flex:0 0 46%;
+    }
+    .news-content{
+      width:52%;
+      text-align:left;
+      padding:6px 6px;
+    }
+    .news-content h3{ color:var(--brand); font-size:1.5rem; margin:0 0 12px;}
+    .news-content p{ color:#444; line-height:1.6; margin:0 0 18px; font-size:1rem;}
+    .news-content .read-btn{
+      display:inline-block;
+      background:var(--brand);
+      color:#fff;
+      padding:10px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    /* nav arrows */
+    .nav-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(0,119,182,0.92);
+      border:0;
+      color:#fff;
+      width:48px;
+      height:48px;
+      border-radius:999px;
+      font-size:20px;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(2,62,138,0.12);
+    }
+    .nav-btn:hover{ transform:translateY(-50%) scale(1.03); }
+    .prev-btn{ left:-18px; }
+    .next-btn{ right:-18px; }
+
+    /* FEATURES */
+    .features-section{
+      padding:56px 20px;
+      background:#fff;
+      text-align:center;
+    }
+    .features-section h2{ color:#023e8a; font-size:1.9rem; margin-bottom:18px; }
+    .features-grid{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      align-items:start;
+    }
+    .feature-card{
+      background:var(--muted);
+      border-radius:12px;
+      padding:20px;
+      text-align:left;
+      box-shadow: 0 6px 18px rgba(3,66,110,0.04);
+      min-height:140px;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .feature-icon{
+      min-width:54px;
+      min-height:54px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--brand),var(--accent));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:700;
+      font-size:20px;
+      box-shadow:0 8px 20px rgba(2,62,138,0.12);
+    }
+    .feature-body h4{ margin:0 0 8px; color:#023e8a; font-size:1.05rem;}
+    .feature-body p{ margin:0; color:#444; line-height:1.45; font-size:0.96rem; }
+
+    /* FOOTER */
+    footer {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 50px 20px 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-brand h2 {
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    .footer-social h3,
+    .footer-links h3,
+    .footer-legal h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #ddd;
+    }
+
+    .footer-social a {
+      margin: 0 10px 0 0;
+      font-size: 22px;
+      color: #fff;
+      transition: color 0.3s;
+    }
+
+    .footer-social a:hover {
+      color: #4CAF50;
+    }
+
+    .footer-links ul,
+    .footer-legal ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links ul li,
+    .footer-legal ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links ul li a,
+    .footer-legal ul li a {
+      text-decoration: none;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+
+    .footer-links ul li a:hover,
+    .footer-legal ul li a:hover {
+      color: #4CAF50;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      border-top: 1px solid #333;
+      padding-top: 15px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* Responsive tweaks */
+    @media(max-width:900px){
+      .news-item{ flex-direction:column; min-height:auto; padding:20px; }
+      .news-item img{ width:100%; height:240px; }
+      .news-content{ width:100%; text-align:center; }
+      .nav-btn.prev-btn{ left:6px; top:auto; bottom:12px; transform:none; }
+      .nav-btn.next-btn{ right:6px; top:auto; bottom:12px; transform:none; }
+    }
+  </style>
+  <!-- Font Awesome for social icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>Digital Health Record System</header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Your Health Portal</h1>
+      <p>
+        Manage your medical records securely, access reports anytime, and stay updated with the latest healthcare trends.
+        A digital step towards a healthier future.
+      </p>
+
+      <div class="role-buttons">
+        <button onclick="changeRole('Patient')">Patient</button>
+        <button onclick="changeRole('Doctor')">Doctor</button>
+        <button onclick="changeRole('Admin')">Admin</button>
+      </div>
+    </div>
+
+    <form class="login-form" id="loginForm">
+      <h2 id="formTitle">Patient Login</h2>
+      <input type="text" id="username" placeholder="Enter Username" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <div class="links">
+        <a href="#" id="forgotLink">Forgot Password?</a>
+        <a href="#" id="registerLink">Register</a>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </section>
+
+  <!-- NEWS -->
+  <section class="news-section">
+    <h2>Latest Medical News</h2>
+    <div class="news-slider" id="newsSlider">
+
+      <div class="news-item" id="news-1">
+        <img src="daia.jpg" alt="Diabetes guidelines">
+        <div class="news-content">
+          <h3>WHO Issues New Guidelines on Diabetes</h3>
+          <p>New global standards recommend lifestyle changes and improved access to insulin for patients worldwide.
+          The initiative aims to reduce complications and improve long-term outcomes.</p>
+          <a class="read-btn" href="#">Read More</a>
+        </div>
+      </div>
+
+      <div class="news-item" id="news-2" style="display:none;">
+        <img src="he;.jpg" alt="AI in healthcare">
+        <div class="news-content">
+          <h3>AI in Healthcare is Growing Rapidly</h3>
+          <p>Hospitals adopt AI for diagnosis, improving accuracy and reducing waiting times. Experts believe AI can
+          revolutionize patient monitoring and personalized treatments.</p>
+          <a class="read-btn" href="#">Read More</a>
+        </div>
+      </div>
+
+      <div class="news-item" id="news-3" style="display:none;">
+        <img src="covid.jpg" alt="COVID booster">
+        <div class="news-content">
+          <h3>COVID-19 Booster Campaign Launched</h3>
+          <p>Health departments urge vulnerable populations to get the latest vaccine booster shots to strengthen
+          immunity against emerging variants and protect high-risk groups.</p>
+          <a class="read-btn" href="#">Read More</a>
+        </div>
+      </div>
+
+      <button class="nav-btn prev-btn" onclick="prevNews()" aria-label="Previous">&#10094;</button>
+      <button class="nav-btn next-btn" onclick="nextNews()" aria-label="Next">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <h2>Platform Features</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-body">
+          <h4>Multilingual Website</h4>
+          <p>Supports multiple languages so migrant workers can view content, forms, and records in their native language for better accessibility.</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <div class="feature-body">
+          <h4>Portable Health Records</h4>
+          <p>Secure, cloud-backed medical records that can be accessed from anywhere — keeping clinical history, lab reports and prescriptions handy.</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div class="feature-body">
+          <h4>Portable Digital Health Card</h4>
+          <p>A concise digital health card summarizing key patient info (allergies, blood type, chronic conditions) for fast access during emergencies.</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-body">
+          <h4>AI & Preventive Healthcare</h4>
+          <p>AI-enabled analytics to detect risk patterns, provide preventive recommendations, and support early interventions to improve outcomes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+
+      <!-- Brand Section -->
+      <div class="footer-brand">
+        <h2>Migracare</h2>
+        <p>Your trusted partner in digital healthcare solutions.</p>
+      </div>
+
+      <!-- Social Media Section -->
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+
+      <!-- Sitemap Section -->
+      <div class="footer-links">
+        <h3>Site Map</h3>
+        <ul>
+          <li><a href="#">Homepage</a></li>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal Section -->
+      <div class="footer-legal">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Migracare. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentRole = "Patient"; // default
+
+    function changeRole(role) {
+      currentRole = role;
+      document.getElementById("formTitle").innerText = role + " Login";
+      document.getElementById("username").placeholder = role + " Username";
+    }
+
+    // login
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (currentRole === "Patient") {
+        window.location.href = "patient_dashboard.html";
+      } else if (currentRole === "Doctor") {
+        window.location.href = "doctor_dashboard.html";
+      } else if (currentRole === "Admin") {
+        window.location.href = "main.html";
+      }
+    });
+
+    // register
+    document.getElementById("registerLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (currentRole === "Patient") {
+        window.location.href = "registerp.html";
+      } else if (currentRole === "Doctor") {
+        window.location.href = "registerd.html";
+      } else if (currentRole === "Admin") {
+        window.location.href = "registera.html";
+      }
+    });
+
+    // forgot password
+    document.getElementById("forgotLink").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (currentRole === "Patient") {
+        window.location.href = "patientforgot.html";
+      } else if (currentRole === "Doctor") {
+        window.location.href = "doctorforgot.html";
+      } else if (currentRole === "Admin") {
+        window.location.href = "adminforgot.html";
+      }
+    });
+    
+
+    // news carousel
+    let currentNews = 1;
+    const totalNews = 3;
+    function showNews(index) {
+      for (let i = 1; i <= totalNews; i++) {
+        const el = document.getElementById("news-" + i);
+        if (!el) continue;
+        el.style.display = i === index ? "flex" : "none";
+      }
+    }
+    function nextNews() {
+      currentNews = currentNews === totalNews ? 1 : currentNews + 1;
+      showNews(currentNews);
+    }
+    function prevNews() {
+      currentNews = currentNews === 1 ? totalNews : currentNews - 1;
+      showNews(currentNews);
+    }
+    showNews(1);
+  </script>
+</body>
+</html>

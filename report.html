@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - DHRMS</title>
+    <link rel="stylesheet" href="report.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Chart.js library for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- ==================== ADMIN SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <button class="close-sidebar-btn"><i class="fa-solid fa-times"></i></button>
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="doctor_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="search.html" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Search Patient</a>
+                <a href="report.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Reports</a>
+                <a href="editdoctor.html" class="nav-link"><i class="fa-solid fa-bell"></i> Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.imgur.com/dJנגmJ.png" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name">Admin User</p>
+                        <small class="user-role">System Administrator</small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="main-content">
+            <header class="main-header-content">
+                <div class="header-text">
+                    <h1>Generate Health Reports</h1>
+                    <p>Filter data to generate and visualize public health insights.</p>
+                </div>
+                <button class="mobile-menu-button"><i class="fa-solid fa-bars"></i></button>
+            </header>
+
+            <!-- Filter Panel -->
+            <section class="filter-panel">
+                <h3 class="panel-title">Report Filters</h3>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="reportType">Report Type</label>
+                        <select id="reportType">
+                            <option value="demographics">Patient Demographics</option>
+                            <option value="disease">Disease Prevalence</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="dateFrom">Date From</label>
+                        <input type="date" id="dateFrom">
+                    </div>
+                    <div class="input-group">
+                        <label for="dateTo">Date To</label>
+                        <input type="date" id="dateTo">
+                    </div>
+                    <div class="input-group">
+                        <label for="districtFilter">District</label>
+                        <select id="districtFilter">
+                            <option value="all">All Districts</option>
+                            <option value="Ernakulam">Ernakulam</option>
+                            <option value="Kozhikode">Kozhikode</option>
+                            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions" style="margin-top: 20px;">
+                    <button id="generateReportBtn" class="btn btn-primary"><i class="fa-solid fa-cogs"></i> Generate Report</button>
+                </div>
+            </section>
+            
+            <!-- Report Output Area (Initially Hidden) -->
+            <section id="reportOutput" class="report-output" style="display: none;">
+                <div class="report-header">
+                    <div class="report-title">
+                        <h2 id="reportTitle">Patient Demographics Report</h2>
+                        <p id="reportSubtitle">For All Districts (Q3 2025)</p>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i> Export as PDF</button>
+                        <button class="btn btn-secondary"><i class="fa-solid fa-print"></i> Print</button>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="card"><div class="card-icon"><i class="fa-solid fa-users"></i></div><div class="card-info"><h2>5,120</h2><p>Filtered Patients</p></div></div>
+                    <div class="card"><div class="card-icon"><i class="fa-solid fa-venus-mars"></i></div><div class="card-info"><h2>72% Male</h2><p>Gender Ratio</p></div></div>
+                    <div class="card"><div class="card-icon"><i class="fa-solid fa-flag"></i></div><div class="card-info"><h2>West Bengal</h2><p>Top Home State</p></div></div>
+                </div>
+                
+                <div class="report-grid">
+                    <div class="grid-card">
+                        <h3>Registrations by Home State</h3>
+                        <canvas id="homeStateChart"></canvas>
+                    </div>
+                     <div class="grid-card">
+                        <h3>Age Distribution</h3>
+                        <canvas id="ageDistributionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="overlay"></div>
+
+    <script>
+        // --- Mobile Menu Script ---
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const closeSidebarButton = document.querySelector('.close-sidebar-btn');
+        const toggleSidebar = () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); };
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+        if (closeSidebarButton) closeSidebarButton.addEventListener('click', toggleSidebar);
+        
+        // --- Report Generation Script ---
+        document.getElementById('generateReportBtn').addEventListener('click', () => {
+            const reportOutput = document.getElementById('reportOutput');
+            reportOutput.style.display = 'block';
+
+            // In a real application, you would fetch data here based on filters.
+            // For this simulation, we'll just draw the charts with sample data.
+
+            // --- Chart 1: Registrations by Home State (Bar Chart) ---
+            new Chart(document.getElementById('homeStateChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['West Bengal', 'Odisha', 'Bihar', 'Assam', 'Uttar Pradesh'],
+                    datasets: [{
+                        label: '# of Patients',
+                        data: [2304, 1126, 820, 560, 310],
+                        backgroundColor: '#006A4E'
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            // --- Chart 2: Age Distribution (Doughnut Chart) ---
+            new Chart(document.getElementById('ageDistributionChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['18-25', '26-35', '36-45', '45+'],
+                    datasets: [{
+                        data: [1536, 2048, 1024, 512],
+                        backgroundColor: ['#006A4E', '#28a745', '#6c757d', '#fd7e14'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            });
+        });
+    </script>
+</body>
+</html>

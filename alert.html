@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts - DHRMS</title>
+    <link rel="stylesheet" href="alert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <button class="close-sidebar-btn"><i class="fa-solid fa-times"></i></button>
+            <div class="sidebar-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kerala_Government_Logo.svg/1200px-Kerala_Government_Logo.svg.png" alt="Logo" class="logo-small">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="main.html" class="nav-link"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="paient.html" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i>Patient Management</a>
+                <a href="doctorm.html" class="nav-link"><i class="fa-solid fa-user-doctor"></i> Doctor Management</a>
+                <a href="alerts.html" class="nav-link active"><i class="fa-solid fa-bell"></i> Alerts</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.imgur.com/dJנגmJ.png" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name">Admin User</p>
+                        <small class="user-role">System Administrator</small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="main-content">
+            <header class="main-header-content">
+                <div class="header-text">
+                    <h1>System Health Alerts</h1>
+                    <p>Monitor and manage important system notifications.</p>
+                </div>
+                <button class="mobile-menu-button"><i class="fa-solid fa-bars"></i></button>
+            </header>
+
+            <div class="tabs">
+                <button class="tab-link active" data-tab="new">New Alerts (2)</button>
+                <button class="tab-link" data-tab="review">Under Review (1)</button>
+                <button class="tab-link" data-tab="resolved">Resolved</button>
+            </div>
+
+            <!-- New Alerts Tab -->
+            <div id="new" class="tab-content active">
+                <article class="alert-card priority-high">
+                    <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <h4>Potential Disease Spike</h4>
+                            <span class="priority-badge high">High Priority</span>
+                        </div>
+                        <p>A potential Dengue Fever spike has been detected in Ernakulam district. 5 new cases reported in the last 24 hours.</p>
+                        <small>Generated: 19 Sep 2025, 05:30 PM</small>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn btn-secondary">Mark as Reviewed</button>
+                    </div>
+                </article>
+
+                <article class="alert-card priority-medium">
+                    <div class="alert-icon"><i class="fa-solid fa-syringe"></i></div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <h4>Vaccination Gap</h4>
+                            <span class="priority-badge medium">Medium Priority</span>
+                        </div>
+                        <p>15 patients in Kozhikode district are overdue for their Tetanus (TT) booster dose.</p>
+                        <small>Generated: 19 Sep 2025, 02:00 PM</small>
+                    </div>
+                     <div class="alert-actions">
+                        <button class="btn btn-secondary">Mark as Reviewed</button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Under Review Tab -->
+            <div id="review" class="tab-content">
+                 <article class="alert-card priority-low">
+                    <div class="alert-icon"><i class="fa-solid fa-server"></i></div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <h4>System Maintenance</h4>
+                            <span class="priority-badge low">Low Priority</span>
+                        </div>
+                        <p>Scheduled server maintenance on Sunday, 21st September at 2:00 AM. A brief downtime is expected.</p>
+                        <small>Generated: 18 Sep 2025, 11:00 AM</small>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn btn-primary">Resolve</button>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Resolved Tab -->
+            <div id="resolved" class="tab-content">
+                <div class="results-message">
+                    <p>No resolved alerts to show.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="overlay"></div>
+
+    <script>
+        // --- Mobile Menu Script ---
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const closeSidebarButton = document.querySelector('.close-sidebar-btn');
+        const toggleSidebar = () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); };
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+        if (closeSidebarButton) closeSidebarButton.addEventListener('click', toggleSidebar);
+
+        // --- Tab Switching Script ---
+        const tabs = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = document.querySelector(`#${tab.dataset.tab}`);
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                tabContents.forEach(content => content.classList.remove('active'));
+                target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

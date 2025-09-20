@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - DHRMS</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <button class="close-sidebar-btn"><i class="fa-solid fa-times"></i></button>
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="main.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="paient.html" class="nav-link"><i class="fa-solid fa-users"></i> Patient Management</a>
+                <a href="doctorm.html" class="nav-link"><i class="fa-solid fa-user-doctor"></i> Doctor Management</a>
+                <a href="alert.html" class="nav-link"><i class="fa-solid fa-bell"></i> Alerts</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name">Admin User</p>
+                        <small class="user-role">System Administrator</small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="main-content">
+            <header class="main-header-content">
+                <div class="header-text">
+                    <h1>Admin Dashboard</h1>
+                    <p>System overview and management portal.</p>
+                </div>
+                <button class="mobile-menu-button"><i class="fa-solid fa-bars"></i></button>
+            </header>
+
+            <section class="stats-cards">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="card-info">
+                        <h2>1,25,430</h2>
+                        <p>Total Patients</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                    <div class="card-info">
+                        <h2>850</h2>
+                        <p>Registered Doctors</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                    <div class="card-info">
+                        <h2>112</h2>
+                        <p>New Patients Today</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-campground"></i></div>
+                    <div class="card-info">
+                        <h2>14</h2>
+                        <p>Active Health Camps</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="dashboard-grid">
+                <div class="grid-card recent-patients">
+                    <h3>Recent Patient Registrations</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Health ID</th>
+                                <th>Name</th>
+                                <th>Home State</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>KMW-2025-9123</td>
+                                <td>Suresh Mandal</td>
+                                <td>West Bengal</td>
+                                <td><a href="#" class="btn-view">View</a></td>
+                            </tr>
+                            <tr>
+                                <td>KMW-2025-9122</td>
+                                <td>Lakshmi Priya</td>
+                                <td>Odisha</td>
+                                <td><a href="#" class="btn-view">View</a></td>
+                            </tr>
+                            <tr>
+                                <td>KMW-2025-9121</td>
+                                <td>Ramesh P.</td>
+                                <td>Bihar</td>
+                                <td><a href="#" class="btn-view">View</a></td>
+                            </tr>
+                             <tr>
+                                <td>KMW-2025-9120</td>
+                                <td>Anita Kumari</td>
+                                <td>Jharkhand</td>
+                                <td><a href="#" class="btn-view">View</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-card">
+                    <h3>Patient Distribution by State</h3>
+                    <canvas id="distributionChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="overlay"></div>
+
+    <script>
+        // --- Mobile Menu Script ---
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const closeSidebarButton = document.querySelector('.close-sidebar-btn');
+
+        const toggleSidebar = () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        };
+
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+        if (closeSidebarButton) closeSidebarButton.addEventListener('click', toggleSidebar);
+
+        // --- Chart.js Script ---
+        new Chart(document.getElementById('distributionChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Thiruvananthapuram', 'Kollam', 'Pathanamthitta', 'Alappuzha', 'Other'],
+                datasets: [{
+                    label: 'Patient Distribution',
+                    data: [45, 25, 15, 10, 5],
+                    backgroundColor: ['#fd7e14', '#28a745', '#007bff', '#6f42c1', '#6c757d'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: { 
+                responsive: true, 
+                plugins: { 
+                    legend: { 
+                        position: 'bottom' 
+                    } 
+                } 
+            }
+        });
+    </script>
+</body>
+</html>

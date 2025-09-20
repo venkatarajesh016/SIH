@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,4 +128,134 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical History - DHRMS</title>
+    <link rel="stylesheet" href="medical_history.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="patient_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="medical_history.html" class="nav-link"><i class="fa-solid fa-file-medical"></i> Medical History</a>
+                <a href="my_appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                <a href="my_documents.html" class="nav-link"><i class="fa-solid fa-folder-open"></i> My Documents</a>
+                <a href="edit_profile.html" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                <a href="helpline.html" class="nav-link"><i class="fa-solid fa-headset"></i> Helpline</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="main1.html" class="logout-button-full">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header-content">
+                <h1>My Medical History</h1>
+                <p>A complete record of your health consultations and reports.</p>
+            </header>
+
+            <section class="health-summary-bar">
+                <div class="summary-item"><strong>Blood Group:</strong> O+</div>
+                <div class="summary-item"><strong>Allergies:</strong> None Reported</div>
+                <div class="summary-item"><strong>Chronic Conditions:</strong> None Reported</div>
+            </section>
+
+            <section class="filter-controls">
+                <div class="input-group">
+                    <label for="dateFrom">From</label>
+                    <input type="date" id="dateFrom">
+                </div>
+                <div class="input-group">
+                    <label for="dateTo">To</label>
+                    <input type="date" id="dateTo">
+                </div>
+                <button class="btn btn-primary">Apply Filter</button>
+            </section>
+
+            <section class="history-timeline">
+                <article class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-temperature-three-quarters"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Viral Fever</h3>
+                            <time>14 September 2025</time>
+                        </div>
+                        <p><strong>Doctor:</strong> Dr. Priya Nair @ Primary Health Centre, Aluva</p>
+                        <div class="timeline-details">
+                            <p><strong>Vitals:</strong> BP: 120/80 mmHg, Temp: 101.2°F</p>
+                            <p><strong>Medication:</strong> Paracetamol 500mg (1-1-1 for 3 days)</p>
+                        </div>
+                        <div class="timeline-actions">
+                            <button class="details-toggle">View Details <i class="fa-solid fa-chevron-down"></i></button>
+                            <a href="#" class="btn-view">Download Prescription</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Routine Check-up</h3>
+                            <time>02 August 2025</time>
+                        </div>
+                        <p><strong>Doctor:</strong> Dr. S. Menon @ Health Camp, Perumbavoor</p>
+                        <div class="timeline-details">
+                            <p><strong>Vitals:</strong> BP: 118/78 mmHg, Temp: 98.6°F</p>
+                            <p><strong>Notes:</strong> General health is good. Advised to maintain a balanced diet.</p>
+                            <p><strong>Labs Ordered:</strong> Complete Blood Count (CBC)</p>
+                        </div>
+                        <div class="timeline-actions">
+                            <button class="details-toggle">View Details <i class="fa-solid fa-chevron-down"></i></button>
+                            <a href="#" class="btn-view">Download Lab Report</a>
+                        </div>
+                    </div>
+                </article>
+
+                 <article class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-syringe"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Vaccination</h3>
+                            <time>15 May 2025</time>
+                        </div>
+                        <p><strong>Clinician:</strong> Health Worker @ Vaccination Camp, Angamaly</p>
+                         <div class="timeline-details">
+                             <p><strong>Vaccine:</strong> COVID-19 (Booster Dose)</p>
+                             <p><strong>Batch No:</strong> COV-B-XYZ123</p>
+                        </div>
+                        <div class="timeline-actions">
+                             <button class="details-toggle">View Details <i class="fa-solid fa-chevron-down"></i></button>
+                            <a href="#" class="btn-view">Download Certificate</a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('.details-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const details = button.closest('.timeline-content').querySelector('.timeline-details');
+                const icon = button.querySelector('i');
+                details.classList.toggle('show');
+                icon.classList.toggle('fa-chevron-up');
+                icon.classList.toggle('fa-chevron-down');
+            });
+        });
+    </script>
+</body>
+>>>>>>> 42c444e (First commit)
 </html>

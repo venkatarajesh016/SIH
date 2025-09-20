@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Management - DHRMS</title>
+    <link rel="stylesheet" href="doctorm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <button class="close-sidebar-btn"><i class="fa-solid fa-times"></i></button>
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="main.html" class="nav-link"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="paient.html" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Patient Management</a>
+                <a href="doctorm.html" class="nav-link active"><i class="fa-solid fa-user-doctor"></i> Doctor Management</a>
+                <a href="alert.html" class="nav-link"><i class="fa-solid fa-bell"></i> Alerts</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.imgur.com/dJנגmJ.png" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name">Admin User</p>
+                        <small class="user-role">System Administrator</small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="main-content">
+            <header class="main-header-content">
+                <div class="header-text">
+                    <h1>Doctor Management</h1>
+                    <p>Manage all registered healthcare professionals in the system.</p>
+                </div>
+                <button class="mobile-menu-button"><i class="fa-solid fa-bars"></i></button>
+            </header>
+
+            <section class="filter-controls" style="padding: 25px;">
+                <div class="input-group" style="flex-grow: 1;">
+                    <label for="doctorSearch">Search by Name or Reg. No.</label>
+                    <input type="text" id="doctorSearch" placeholder="Enter search term...">
+                </div>
+                <div class="input-group">
+                    <label for="statusFilter">Filter by Status</label>
+                    <select id="statusFilter">
+                        <option value="all">All</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                 <a href="doctor_registration.html" class="btn btn-primary" style="height: 45px;"><i class="fa-solid fa-plus"></i> Add New Doctor</a>
+            </section>
+
+            <div class="grid-card">
+                 <table class="documents-table">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Registration No.</th>
+                            <th>Specialization</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctorsTbody">
+                        <!-- Doctor list will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div class="overlay"></div>
+
+    <script>
+        // --- Mobile Menu Script ---
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const closeSidebarButton = document.querySelector('.close-sidebar-btn');
+        const toggleSidebar = () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); };
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+        if (closeSidebarButton) closeSidebarButton.addEventListener('click', toggleSidebar);
+        
+        // --- SIMULATED DOCTOR DATABASE ---
+        const dummyDoctors = [
+            { name: 'Dr. Anjali Sharma', regNo: 'TCMC12345', specialization: 'General Physician', status: 'active' },
+            { name: 'Dr. Benoy George', regNo: 'TCMC54321', specialization: 'Pediatrics', status: 'active' },
+            { name: 'Dr. Priya Nair', regNo: 'TCMC67890', specialization: 'General Physician', status: 'inactive' },
+            { name: 'Dr. Suresh Menon', regNo: 'TCMC11223', specialization: 'Orthopedics', status: 'active' },
+            { name: 'Dr. Fatima Beevi', regNo: 'TCMC33445', specialization: 'Dermatology', status: 'active' }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const doctorSearch = document.getElementById('doctorSearch');
+        const statusFilter = document.getElementById('statusFilter');
+        const doctorsTbody = document.getElementById('doctorsTbody');
+
+        // --- RENDER FUNCTION ---
+        const renderTable = (doctors) => {
+            doctorsTbody.innerHTML = '';
+            if (doctors.length === 0) {
+                doctorsTbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">No doctors found matching criteria.</td></tr>';
+                return;
+            }
+
+            doctors.forEach(doctor => {
+                const statusBadge = doctor.status === 'active' 
+                    ? `<span class="status-badge status-active">Active</span>` 
+                    : `<span class="status-badge status-inactive">Inactive</span>`;
+
+                const actionButton = doctor.status === 'active'
+                    ? `<button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Deactivate</button>`
+                    : `<button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.8rem;">Activate</button>`;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${doctor.name}</td>
+                    <td>${doctor.regNo}</td>
+                    <td>${doctor.specialization}</td>
+                    <td>${statusBadge}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.8rem;">Edit</button>
+                        ${actionButton}
+                    </td>
+                `;
+                doctorsTbody.appendChild(row);
+            });
+        };
+
+        // --- FILTER FUNCTIONALITY ---
+        const filterDoctors = () => {
+            const searchQuery = doctorSearch.value.trim().toLowerCase();
+            const status = statusFilter.value;
+
+            const filteredDoctors = dummyDoctors.filter(doctor => {
+                const matchesSearch = doctor.name.toLowerCase().includes(searchQuery) || doctor.regNo.toLowerCase().includes(searchQuery);
+                const matchesStatus = status === 'all' || doctor.status === status;
+                return matchesSearch && matchesStatus;
+            });
+
+            renderTable(filteredDoctors);
+        };
+
+        // --- EVENT LISTENERS ---
+        doctorSearch.addEventListener('keyup', filterDoctors);
+        statusFilter.addEventListener('change', filterDoctors);
+
+        // --- INITIAL RENDER ---
+        renderTable(dummyDoctors);
+    </script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -202,4 +203,209 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Registration - DHRMS</title>
+    <link rel="stylesheet" href="registerd.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="header-logo">
+                <span>DHRMS Kerala</span>
+            </div>
+            <!-- <div class="header-user-info">
+                <span>Welcome, System_Admin</span>
+                <a href="#" class="logout-button">Logout</a>
+            </div> -->
+        </div>
+    </header>
+
+    <main class="form-container">
+        <h1>New Doctor / Healthcare Professional Registration</h1>
+
+        <form action="#" method="POST" class="registration-form">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="fullName">Full Name (as per records) *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="dob">Date of Birth *</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="gender">Gender *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">-- Select --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Professional Credentials & Verification</legend>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="regNumber">Medical Registration No. (TCMC) *</label>
+                        <input type="text" id="regNumber" name="regNumber" placeholder="e.g., 12345" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="specialization">Specialization *</label>
+                        <select id="specialization" name="specialization" required>
+                            <option value="">-- Select --</option>
+                            <option value="General Physician">General Physician</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width">
+                        <label for="qualifications-input">Qualifications (Type and press Enter)</label>
+                        <div class="tag-container" id="qualifications-container">
+                            <input type="text" id="qualifications-input" placeholder="e.g., MBBS, MD, DNB...">
+                        </div>
+                        <input type="hidden" name="qualifications" id="qualifications">
+                    </div>
+                    <div class="input-group">
+                        <label for="regCertificate">Upload Registration Certificate *</label>
+                        <input type="file" id="regCertificate" name="regCertificate" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="degreeCertificate">Upload Degree Certificate *</label>
+                        <input type="file" id="degreeCertificate" name="degreeCertificate" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Workplace & Contact Details</legend>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="workplace">Current Hospital / PHC *</label>
+                        <input type="text" id="workplace" name="workplace" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="district">District *</label>
+                        <select id="district" name="district" required>
+                             <option value="">-- Select District --</option>
+                             <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                             <option value="Kollam">Kollam</option>
+                             <option value="Pathanamthitta">Pathanamthitta</option>
+                             <option value="Alappuzha">Alappuzha</option>
+                             <option value="Kottayam">Kottayam</option>
+                             <option value="Idukki">Idukki</option>
+                             <option value="Ernakulam">Ernakulam</option>
+                             <option value="Thrissur">Thrissur</option>
+                             <option value="Palakkad">Palakkad</option>
+                             <option value="Malappuram">Malappuram</option>
+                             <option value="Kozhikode">Kozhikode</option>
+                             <option value="Wayanad">Wayanad</option>
+                             <option value="Kannur">Kannur</option>
+                             <option value="Kasaragod">Kasaragod</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Official Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="mobile">Mobile Number *</label>
+                        <input type="tel" id="mobile" name="mobile" pattern="\d{10}" title="10-digit mobile number" required>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>System Account Setup</legend>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="username">Username / Employee ID *</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="role">Assign Role *</label>
+                        <select id="role" name="role" required>
+                            <option value="">-- Select Role --</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="specialist">Specialist</option>
+                            <option value="health_officer">Health Officer</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Set Initial Password *</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="reset" class="btn btn-secondary">Reset Form</button>
+                <button type="submit" class="btn btn-primary">Register Doctor</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Code for qualifications tags
+        const tagContainer = document.getElementById('qualifications-container');
+        const tagInput = document.getElementById('qualifications-input');
+        const hiddenInput = document.getElementById('qualifications');
+        let qualifications = [];
+
+        function updateTags() {
+            tagContainer.querySelectorAll('.tag').forEach(tag => tag.remove());
+            qualifications.forEach(qual => {
+                const tagElement = document.createElement('span');
+                tagElement.classList.add('tag');
+                tagElement.innerText = qual;
+                
+                const removeElement = document.createElement('span');
+                removeElement.classList.add('remove-tag');
+                removeElement.innerText = 'x';
+                removeElement.onclick = () => {
+                    removeQualification(qual);
+                };
+                
+                tagElement.appendChild(removeElement);
+                tagContainer.prepend(tagElement);
+            });
+            hiddenInput.value = qualifications.join(',');
+        }
+
+        function removeQualification(qualToRemove) {
+            qualifications = qualifications.filter(qual => qual !== qualToRemove);
+            updateTags();
+        }
+
+        tagInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ',') {
+                event.preventDefault();
+                const newQual = tagInput.value.trim().toUpperCase();
+                if (newQual && !qualifications.includes(newQual)) {
+                    qualifications.push(newQual);
+                    updateTags();
+                }
+                tagInput.value = '';
+            }
+        });
+    </script>
+</body>
+>>>>>>> 42c444e (First commit)
 </html>

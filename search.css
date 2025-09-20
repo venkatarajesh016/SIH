@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* All root variables and previous styles remain the same... */
+:root { /* ... */ }
+body { /* ... */ }
+.dashboard-container { /* ... */ }
+.sidebar { /* ... */ }
+/* ... and so on for all existing styles ... */
+
+/* ==================== PREVIOUS STYLES (Condensed for brevity) ==================== */
+:root { --primary-green: #006A4E; --secondary-green: #e9f5e9; --background-light: #f4f7f6; --text-dark: #333; --text-light: #666; --border-color: #e0e0e0; --white: #fff; --shadow: 0 5px 15px rgba(0,0,0,0.05); --danger-red: #dc3545; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-dark); }
+.dashboard-container { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.sidebar { background-color: var(--white); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 15px; }
+.sidebar-header { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 600; color: var(--primary-green); padding: 10px 5px 20px 5px; }
+.logo-small { width: 35px; }
+.sidebar-nav { flex-grow: 1; }
+.nav-link { text-decoration: none; color: var(--text-light); font-weight: 500; padding: 12px 15px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { background-color: var(--primary-green); color: var(--white); }
+.sidebar-footer { margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
+.user-profile { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.user-details { flex-grow: 1; }
+.user-name { font-weight: 600; }
+.user-role { font-size: 0.8rem; color: var(--text-light); }
+.logout-icon { text-decoration: none; color: var(--text-light); font-size: 1.2rem; padding: 8px; border-radius: 8px; transition: all 0.3s ease; }
+.logout-icon:hover { background-color: var(--secondary-green); }
+.main-content { padding: 30px; }
+.main-header-content h1, .page-title-header h1 { font-size: 2rem; }
+.main-header-content p { color: var(--text-light); }
+.grid-card { background-color: var(--white); border-radius: 8px; padding: 25px; box-shadow: var(--shadow); }
+.grid-card h3 { margin-bottom: 20px; }
+.btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;}
+.btn-primary { background-color: var(--primary-green); color: var(--white); }
+.input-group { display: flex; flex-direction: column; }
+.input-group label { margin-bottom: 5px; font-weight: 500; color: #555; }
+.input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1rem; }
+.documents-table { width: 100%; border-collapse: collapse; }
+.documents-table th, .documents-table td { text-align: left; padding: 15px; border-bottom: 1px solid var(--border-color); }
+.documents-table th { color: var(--text-light); }
+.results-container { min-height: 200px; }
+
+/* ==================== NEW Search Patient Page Styles ==================== */
+.search-form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+    background-color: var(--white);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+.search-form-container .input-group {
+    min-width: 200px;
+}
+.search-form-container .input-group.search-query {
+    flex-grow: 1;
+}
+.search-form-container .btn {
+    height: 45px; /* Aligns button with input fields */
+}
+.results-message {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+.results-table {
+    display: table; /* Overrides default display:none when active */
+}
+
+/* ==================== Responsive Styles ==================== */
+@media (max-width: 992px) { .dashboard-container { grid-template-columns: 1fr; } .sidebar { display: none; } }
+@media (max-width: 768px) { .search-form-container { flex-direction: column; align-items: stretch; } }

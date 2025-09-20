@@ -1,0 +1,145 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Patient - DHRMS</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="doctor_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="search.html" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Search Patient</a>
+                <a href="report.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Reports</a>
+                <a href="editdoctor.html" class="nav-link"><i class="fa-solid fa-bell"></i> Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.imgur.com/dJנגmJ.png" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name">Dr. Anjali Sharma</p>
+                        <small class="user-role">General Physician</small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header-content">
+                <h1>Search Patient Records</h1>
+                <p>Find patient records using their Name, Health ID, Aadhaar, or Mobile Number.</p>
+            </header>
+
+            <section class="search-form-container">
+                <div class="input-group">
+                    <label for="searchCriteria">Search By</label>
+                    <select id="searchCriteria">
+                        <option value="name">Name</option>
+                        <option value="healthId">Health ID</option>
+                        <option value="aadhaar">Aadhaar Number</option>
+                        <option value="mobile">Mobile Number</option>
+                    </select>
+                </div>
+                <div class="input-group search-query">
+                    <label for="searchQuery">Enter Query</label>
+                    <input type="text" id="searchQuery" placeholder="Enter search term...">
+                </div>
+                <button class="btn btn-primary" id="searchButton"><i class="fa-solid fa-search"></i> Search</button>
+            </section>
+
+            <section class="results-container grid-card">
+                <h3>Search Results</h3>
+                <div id="resultsMessage" class="results-message">
+                    <p>Please enter a query and click Search to see results.</p>
+                </div>
+                <table class="documents-table" id="resultsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Health ID</th>
+                            <th>Full Name</th>
+                            <th>Date of Birth</th>
+                            <th>Home State</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTbody">
+                        </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- SIMULATED PATIENT DATABASE ---
+        const dummyPatients = [
+            { healthId: 'KMW-2025-8451', name: 'Rahul Kumar', dob: '15-Aug-1993', homeState: 'West Bengal', aadhaar: '111122223333', mobile: '9876543210' },
+            { healthId: 'KMW-2025-8390', name: 'Sunita Devi', dob: '22-Apr-1998', homeState: 'Odisha', aadhaar: '222233334444', mobile: '9876543211' },
+            { healthId: 'KMW-2024-7912', name: 'Amit Singh', dob: '01-Jan-1990', homeState: 'Bihar', aadhaar: '333344445555', mobile: '9876543212' },
+            { healthId: 'KMW-2025-8311', name: 'Priya Murmu', dob: '30-Jul-2001', homeState: 'Jharkhand', aadhaar: '444455556666', mobile: '9876543213' },
+            { healthId: 'KMW-2023-6545', name: 'Ravi Kumar Verma', dob: '19-Feb-1988', homeState: 'Uttar Pradesh', aadhaar: '555566667777', mobile: '9876543214' }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const searchButton = document.getElementById('searchButton');
+        const searchCriteria = document.getElementById('searchCriteria');
+        const searchQuery = document.getElementById('searchQuery');
+        const resultsTable = document.getElementById('resultsTable');
+        const resultsTbody = document.getElementById('resultsTbody');
+        const resultsMessage = document.getElementById('resultsMessage');
+
+        // --- SEARCH FUNCTIONALITY ---
+        searchButton.addEventListener('click', () => {
+            const criteria = searchCriteria.value;
+            const query = searchQuery.value.trim().toLowerCase();
+
+            if (!query) {
+                resultsMessage.innerHTML = '<p style="color: var(--danger-red);">Please enter a search term.</p>';
+                resultsTable.style.display = 'none';
+                resultsMessage.style.display = 'block';
+                return;
+            }
+
+            const results = dummyPatients.filter(patient => {
+                const valueToSearch = patient[criteria] ? patient[criteria].toLowerCase() : '';
+                return valueToSearch.includes(query);
+            });
+            
+            displayResults(results);
+        });
+        
+        // --- DISPLAY RESULTS FUNCTION ---
+        function displayResults(results) {
+            resultsTbody.innerHTML = ''; // Clear previous results
+
+            if (results.length === 0) {
+                resultsMessage.innerHTML = '<p>No records found matching your criteria.</p>';
+                resultsTable.style.display = 'none';
+                resultsMessage.style.display = 'block';
+            } else {
+                results.forEach(patient => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${patient.healthId}</td>
+                        <td>${patient.name}</td>
+                        <td>${patient.dob}</td>
+                        <td>${patient.homeState}</td>
+                        <td><a href="#" class="btn btn-primary" style="padding: 8px 15px;">View Record</a></td>
+                    `;
+                    resultsTbody.appendChild(row);
+                });
+                resultsMessage.style.display = 'none';
+                resultsTable.style.display = 'table';
+            }
+        }
+    </script>
+</body>
+</html>

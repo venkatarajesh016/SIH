@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Doctor Profile - DHRMS</title>
+    <link rel="stylesheet" href="editdoctor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="doctor_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="search.html" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Search Patient</a>
+                <a href="report.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Reports</a>
+                <a href="editdoctor.html" class="nav-link"><i class="fa-solid fa-bell"></i> Profile</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="main1.html" class="logout-button-full">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header-content">
+                <h1>Edit Your Profile</h1>
+                <p>Keep your personal and contact information up to date.</p>
+            </header>
+
+            <div class="form-container" style="margin-top:0; padding-top: 0;">
+                <form action="#" method="POST" class="registration-form">
+
+                    <fieldset>
+                        <legend>Personal Information (Read-only)</legend>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" value="Rahul Kumar" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>License ID</label>
+                                <input type="text" value="KMW-2025-8451" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Date of Birth</label>
+                                <input type="text" value="15-Aug-1993" disabled>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Update Professional Credentials & Verification</legend>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="regNumber">Medical Registration No. (TCMC) *</label>
+                                <input type="text" id="regNumber" name="regNumber" placeholder="e.g., 12345" required readonly>
+                            </div>
+                            <div class="input-group">
+                                <label for="specialization">Specialization *</label>
+                                <select id="specialization" name="specialization" required disabled>
+                                    <option value="">-- Select --</option>
+                                    <option value="General Physician">General Physician</option>
+                                    <option value="Pediatrics">Pediatrics</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Orthopedics">Orthopedics</option>
+                                    <option value="Dermatology">Dermatology</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="qualifications-input">Qualifications (Type and press Enter)</label>
+                                <div class="tag-container" id="qualifications-container">
+                                    <input type="text" id="qualifications-input" placeholder="e.g., MBBS, MD, DNB...">
+                                </div>
+                                <input type="hidden" name="qualifications" id="qualifications">
+                            </div>
+                            <div class="input-group">
+                                <label for="regCertificate">Upload Registration Certificate *</label>
+                                <input type="file" id="regCertificate" name="regCertificate" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="degreeCertificate">Upload Degree Certificate *</label>
+                                <input type="file" id="degreeCertificate" name="degreeCertificate" required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <legend> Update Workplace & Contact Details</legend>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="workplace">Current Hospital / PHC *</label>
+                                <input type="text" id="workplace" name="workplace" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="district">District *</label>
+                                <select id="district" name="district" required>
+                                    <option value="">-- Select District --</option>
+                                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                    <option value="Kollam">Kollam</option>
+                                    <option value="Pathanamthitta">Pathanamthitta</option>
+                                    <option value="Alappuzha">Alappuzha</option>
+                                    <option value="Kottayam">Kottayam</option>
+                                    <option value="Idukki">Idukki</option>
+                                    <option value="Ernakulam">Ernakulam</option>
+                                    <option value="Thrissur">Thrissur</option>
+                                    <option value="Palakkad">Palakkad</option>
+                                    <option value="Malappuram">Malappuram</option>
+                                    <option value="Kozhikode">Kozhikode</option>
+                                    <option value="Wayanad">Wayanad</option>
+                                    <option value="Kannur">Kannur</option>
+                                    <option value="Kasaragod">Kasaragod</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Official Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="mobile">Mobile Number *</label>
+                                <input type="tel" id="mobile" name="mobile" pattern="\d{10}"
+                                    title="10-digit mobile number" required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>System Account Setup</legend>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="username">Username / Employee ID *</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="role">Assign Role *</label>
+                                <select id="role" name="role" required>
+                                    <option value="">-- Select Role --</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="specialist">Specialist</option>
+                                    <option value="health_officer">Health Officer</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-actions">
+                        <a href="patient_dashboard.html" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

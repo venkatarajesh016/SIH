@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,3 +168,264 @@
     </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health Dashboard - DHRMS</title>
+    <link rel="stylesheet" href="patient_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                 <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="patient_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="medical_history.html" class="nav-link"><i class="fa-solid fa-file-medical"></i> Medical History</a>
+                <a href="my_appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
+                <a href="my_documents.html" class="nav-link"><i class="fa-solid fa-folder-open"></i> My Documents</a>
+                <a href="edit_profile.html" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                <a href="helpline.html" class="nav-link"><i class="fa-solid fa-headset"></i> Helpline</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name" id="sidebarName">Rahul Kumar</p>
+                        <small class="user-role">Patient ID: <span id="sidebarHealthId">KMW-2025-8451</span></small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header-content">
+                <h1>Welcome, <span id="headerName">Rahul Kumar</span></h1>
+                <p>Here is a summary of your health record.</p>
+            </header>
+
+            <section class="profile-summary-card">
+                <div class="profile-photo">
+                    <img id="profilePhoto" src="WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg" alt="Patient Photo">
+                </div>
+                <div class="profile-details">
+                    <h2 id="profileName">Rahul Kumar</h2>
+                    <p><strong>Health ID:</strong> <span id="profileHealthId">KMW-2025-8451</span></p>
+                    <div class="details-grid">
+                        <p><strong>Age:</strong> <span id="profileAge">32</span></p>
+                        <p><strong>Gender:</strong> <span id="profileGender">Male</span></p>
+                        <p><strong>Blood Group:</strong> <span id="profileBlood">O+</span></p>
+                        <p><strong>Contact:</strong> <span id="profileContact">98**</span></p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button id="showQrButton" class="btn btn-primary"><i class="fa-solid fa-qrcode"></i> View Health ID Card</button>
+                    <a href="edit_profile.html" class="btn btn-secondary">Update Profile</a>
+                </div>
+            </section>
+
+            <section class="dashboard-grid patient-grid">
+                <div class="grid-card">
+                    <h3><i class="fa-solid fa-calendar-alt"></i> Upcoming Appointment</h3>
+                    <div class="appointment-details">
+                        <p><strong>Doctor:</strong> Dr. Priya Nair (General Physician)</p>
+                        <p><strong>Date:</strong> 20th September 2025, 10:00 AM</p>
+                        <p><strong>Location:</strong> Primary Health Centre, Aluva</p>
+                        <p><strong>Reason:</strong> Follow-up for fever</p>
+                    </div>
+                    <a href="my_appointments.html" class="card-link">Manage Appointments</a>
+                </div>
+
+                <div class="grid-card">
+                    <h3><i class="fa-solid fa-bell"></i> Health Alerts & Reminders</h3>
+                    <ul class="alerts-list">
+                        <li><i class="fa-solid fa-triangle-exclamation"></i> Follow-up for fever check is due.</li>
+                        <li><i class="fa-solid fa-syringe"></i> Tetanus (TT) booster dose recommended.</li>
+                        <li><i class="fa-solid fa-pills"></i> Remember to take your daily medication.</li>
+                    </ul>
+                     <a href="#" class="card-link">View All Alerts</a>
+                </div>
+
+                <div class="grid-card full-width">
+                    <h3><i class="fa-solid fa-notes-medical"></i> Recent Medical History</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date of Visit</th>
+                                <th>Doctor Consulted</th>
+                                <th>Diagnosis / Reason</th>
+                                <th>Documents</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>14 Sep 2025</td>
+                                <td>Dr. Priya Nair</td>
+                                <td>Viral Fever</td>
+                                <td><a href="#" class="btn-view">View Prescription</a></td>
+                            </tr>
+                            <tr>
+                                <td>02 Aug 2025</td>
+                                <td>Dr. S. Menon</td>
+                                <td>Routine Check-up</td>
+                                <td><a href="#" class="btn-view">View Lab Report</a></td>
+                            </tr>
+                            <tr>
+                                <td>15 May 2025</td>
+                                <td>Health Camp</td>
+                                <td>Vaccination (COVID-19 Booster)</td>
+                                <td><a href="#" class="btn-view">View Certificate</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                     <a href="medical_history.html" class="card-link">View Full Medical History</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Your Digital Health ID Card</h3>
+            <p>Show this QR code at any health center for quick identification.</p>
+            <div id="qrcode-container"></div> <div class="modal-details">
+                <p><strong>Name:</strong> <span id="modalName">Rahul Kumar</span></p>
+                <p><strong>Health ID:</strong> <span id="modalHealthId">KMW-2025-8451</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+        // Populate dashboard from recent registration (localStorage) or URL params
+        (function hydrateFromState(){
+            const params = new URLSearchParams(window.location.search);
+            const urlHealthId = params.get('healthId');
+            let last = null;
+            try { last = JSON.parse(localStorage.getItem('lastRegisteredPatient') || 'null'); } catch(_) {}
+            const data = last || {};
+
+            const name = (data.fullName) || 'Patient';
+            const healthId = urlHealthId || data.healthId || '—';
+            const age = data.age || '';
+            const gender = data.gender || '';
+            const blood = data.bloodGroup || '';
+            const contact = data.mobile || '';
+            const photo = data.photoUrl || '';
+
+            const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+            setText('sidebarName', name);
+            setText('sidebarHealthId', healthId);
+            setText('headerName', name);
+            setText('profileName', name);
+            setText('profileHealthId', healthId);
+            setText('profileAge', age);
+            setText('profileGender', gender);
+            setText('profileBlood', blood);
+            setText('profileContact', contact);
+
+            const photoEl = document.getElementById('profilePhoto');
+            if (photoEl && photo) {
+                photoEl.src = photo;
+            }
+        })();
+        // Get modal elements
+        const modal = document.getElementById('qrModal');
+        const showQrButton = document.getElementById('showQrButton');
+        const closeButton = document.querySelector('.close-button');
+        // Load healthId from URL or localStorage
+        const params = new URLSearchParams(window.location.search);
+        const urlHealthId = params.get('healthId');
+        let last = null;
+        try { last = JSON.parse(localStorage.getItem('lastRegisteredPatient') || 'null'); } catch(_) {}
+        const healthId = urlHealthId || (last && last.healthId) || document.getElementById('modalHealthId').textContent;
+        const nameEl = document.getElementById('modalName');
+        if (last && last.fullName) { nameEl.textContent = last.fullName; }
+        document.getElementById('modalHealthId').textContent = healthId;
+
+        // --- Generate the QR Code ---
+        document.getElementById('qrcode-container').innerHTML = '';
+        new QRCode(document.getElementById("qrcode-container"), {
+            text: healthId,
+            width: 200,
+            height: 200,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // --- Modal functionality ---
+        showQrButton.onclick = function() {
+            modal.style.display = "block";
+        }
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+	<script type="module">
+		import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js';
+		import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js';
+
+		const firebaseConfig = {
+			apiKey: "AIzaSyCk34AKpzpuH49b0z8SpPhPjt7oIvEI3aw",
+			authDomain: "fir-14dfd.firebaseapp.com",
+			projectId: "fir-14dfd",
+			storageBucket: "fir-14dfd.appspot.com",
+			messagingSenderId: "721167685687",
+			appId: "1:721167685687:web:6c1cb132a1c92224ae47b2",
+			measurementId: "G-45VD5ZKLRY"
+		};
+
+		const app = initializeApp(firebaseConfig);
+		const db = getFirestore(app);
+
+		async function hydrateFromFirestore() {
+			const params = new URLSearchParams(window.location.search);
+			const urlHealthId = params.get('healthId');
+			let last = null;
+			try { last = JSON.parse(localStorage.getItem('lastRegisteredPatient') || 'null'); } catch(_) {}
+			const healthId = urlHealthId || (last && last.healthId);
+			if (!healthId) return;
+			try {
+				const snap = await getDoc(doc(db, 'patients', healthId));
+				if (!snap.exists()) return;
+				const p = snap.data();
+				const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value || ''; };
+				setText('sidebarName', p.fullName);
+				setText('sidebarHealthId', p.healthId);
+				setText('headerName', p.fullName);
+				setText('profileName', p.fullName);
+				setText('profileHealthId', p.healthId);
+				setText('profileAge', p.age);
+				setText('profileGender', p.gender);
+				setText('profileBlood', p.bloodGroup);
+				setText('profileContact', p.mobile);
+				const photoEl = document.getElementById('profilePhoto');
+				if (photoEl && p.photoUrl) { photoEl.src = p.photoUrl; }
+				const modalName = document.getElementById('modalName');
+				if (modalName && p.fullName) { modalName.textContent = p.fullName; }
+				document.getElementById('modalHealthId').textContent = p.healthId;
+			} catch (_) {
+				// ignore
+			}
+		}
+
+		hydrateFromFirestore();
+	</script>
+</body>
+</html>
+>>>>>>> 42c444e (First commit)

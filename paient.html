@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management - DHRMS</title>
+    <link rel="stylesheet" href="paient.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <button class="close-sidebar-btn"><i class="fa-solid fa-times"></i></button>
+            <div class="sidebar-header">
+                <span>DHRMS Kerala</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="main.html" class="nav-link"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="paient.html" class="nav-link active"><i class="fa-solid fa-users"></i> Patient Management</a>
+                <a href="doctorm.html" class="nav-link"><i class="fa-solid fa-user-doctor"></i> Doctor Management</a>
+                <a href="alert.html" class="nav-link"><i class="fa-solid fa-bell"></i> Alerts</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <p class="user-name">Admin User</p>
+                        <small class="user-role">System Administrator</small>
+                    </div>
+                    <a href="main1.html" class="logout-icon" title="Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header-content">
+                <div class="header-text">
+                    <h1>Patient Management</h1>
+                    <p>Search, filter, and manage all patient records.</p>
+                </div>
+                <button class="mobile-menu-button"><i class="fa-solid fa-bars"></i></button>
+            </header>
+
+            <section class="filter-controls">
+                <div class="input-group">
+                    <label for="searchQuery">Search by Name/ID</label>
+                    <input type="text" id="searchQuery" placeholder="Enter name or health ID...">
+                </div>
+                <div class="input-group">
+                    <label for="districtFilter">Filter by District</label>
+                    <select id="districtFilter">
+                        <option value="all">All Districts</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Kollam">Kollam</option>
+                        <option value="Pathanamthitta">Pathanamthitta</option>
+                        <option value="Alappuzha">Alappuzha</option>
+                        <option value="Kottayam">Kottayam</option>
+                        <option value="Idukki">Idukki</option>
+                        <option value="Ernakulam">Ernakulam</option>
+                        <option value="Thrissur">Thrissur</option>
+                        <option value="Palakkad">Palakkad</option>
+                        <option value="Malappuram">Malappuram</option>
+                        <option value="Kozhikode">Kozhikode</option>
+                        <option value="Wayanad">Wayanad</option>
+                        <option value="Kannur">Kannur</option>
+                        <option value="Kasaragod">Kasaragod</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="grid-card">
+                <h3>Patient Records</h3>
+                <table class="documents-table">
+                    <thead>
+                        <tr>
+                            <th>Health ID</th>
+                            <th>Full Name</th>
+                            <th>Age</th>
+                            <th>District</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientsTbody">
+                        </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <div class="overlay"></div>
+
+    <script>
+        // --- Mobile Menu Script ---
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        const closeSidebarButton = document.querySelector('.close-sidebar-btn');
+        const toggleSidebar = () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); };
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+        if (closeSidebarButton) closeSidebarButton.addEventListener('click', toggleSidebar);
+
+        // --- SIMULATED PATIENT DATABASE (with district info) ---
+        const dummyPatients = [
+            { healthId: 'KMW-2025-8451', name: 'Rahul Kumar', age: 32, district: 'Ernakulam' },
+            { healthId: 'KMW-2025-8390', name: 'Sunita Devi', age: 27, district: 'Kozhikode' },
+            { healthId: 'KMW-2024-7912', name: 'Amit Singh', age: 35, district: 'Thiruvananthapuram' },
+            { healthId: 'KMW-2025-8311', name: 'Priya Murmu', age: 24, district: 'Thrissur' },
+            { healthId: 'KMW-2023-6545', name: 'Ravi Kumar Verma', age: 37, district: 'Ernakulam' }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const searchQuery = document.getElementById('searchQuery');
+        const districtFilter = document.getElementById('districtFilter');
+        const patientsTbody = document.getElementById('patientsTbody');
+
+        // --- RENDER TABLE FUNCTION ---
+        const renderTable = (patients) => {
+            patientsTbody.innerHTML = '';
+            if (patients.length === 0) {
+                patientsTbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">No patients found matching criteria.</td></tr>';
+                return;
+            }
+            patients.forEach(patient => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${patient.healthId}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.age}</td>
+                    <td>${patient.district}</td>
+                    <td><a href="#" class="btn-view">View Record</a></td>
+                `;
+                patientsTbody.appendChild(row);
+            });
+        };
+        
+        // --- FILTER FUNCTIONALITY ---
+        const filterPatients = () => {
+            const query = searchQuery.value.trim().toLowerCase();
+            const district = districtFilter.value;
+
+            const filtered = dummyPatients.filter(patient => {
+                const matchesQuery = patient.name.toLowerCase().includes(query) || patient.healthId.toLowerCase().includes(query);
+                const matchesDistrict = (district === 'all' || patient.district === district);
+                return matchesQuery && matchesDistrict;
+            });
+
+            renderTable(filtered);
+        };
+        
+        // --- EVENT LISTENERS ---
+        searchQuery.addEventListener('keyup', filterPatients);
+        districtFilter.addEventListener('change', filterPatients);
+        
+        // --- INITIAL RENDER ---
+        renderTable(dummyPatients);
+    </script>
+</body>
+</html>

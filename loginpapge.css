@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 :root {
@@ -213,4 +214,221 @@ body {
     .health-image {
         display: none; /* Hide image on smaller screens to save space */
     }
+=======
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+    --primary-green: #006A4E;
+    --secondary-gold: #FFD700;
+    --background-light: #f4f7f6;
+    --text-dark: #333;
+    --text-light: #fff;
+    --border-color: #ccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    min-height: 700px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Left Info Panel */
+.login-info-panel {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    width: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.login-info-panel .logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.login-info-panel h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.login-info-panel .tagline {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.login-info-panel .illustration {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.health-image {
+    max-width: 80%;
+    height: auto;
+}
+
+
+/* Right Form Panel */
+.login-form-panel {
+    width: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.language-selector {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.language-selector a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.language-selector a.active {
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+.login-form h2 {
+    font-size: 2rem;
+    color: var(--primary-green);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.login-form .form-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+}
+
+.form-options {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #00563f;
+}
+
+.login-footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.login-footer a {
+    color: #555;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .login-container {
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+    }
+
+    .login-info-panel, .login-form-panel {
+        width: 100%;
+    }
+    
+    .login-info-panel {
+        padding: 40px 20px;
+    }
+    
+    .login-form-panel {
+        padding: 40px 20px;
+        justify-content: flex-start;
+    }
+    
+    .login-footer {
+        margin-top: 40px;
+    }
+    
+    .health-image {
+        display: none; /* Hide image on smaller screens to save space */
+    }
+>>>>>>> 42c444e (First commit)
 }

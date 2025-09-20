@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
@@ -109,4 +110,117 @@ body { font-family: 'Poppins', sans-serif; background-color: var(--background-li
 
 /* ==================== Responsive Styles ==================== */
 @media (max-width: 992px) { .dashboard-container { grid-template-columns: 1fr; } .sidebar { display: none; } }
+=======
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-green: #006A4E;
+    --secondary-green: #e9f5e9;
+    --background-light: #f4f7f6;
+    --text-dark: #333;
+    --text-light: #666;
+    --border-color: #e0e0e0;
+    --white: #fff;
+    --shadow: 0 5px 15px rgba(0,0,0,0.05);
+    --danger-red: #dc3545;
+    --grey: #6c757d;
+    --blue: #007bff;
+    --blue-light: #e7f3ff;
+    --green: #28a745;
+    --green-light: #eaf6ec;
+    --orange: #fd7e14;
+    --orange-light: #fff3e8;
+}
+
+/* Base and Login Styles (Condensed for Brevity) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--background-light); color: var(--text-dark); }
+.login-container, .dashboard-container, .sidebar, .main-content, .form-container { /* Existing styles */ }
+
+/* General Layout & Reusable Components */
+.dashboard-container { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+.sidebar { background-color: var(--white); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px; }
+.sidebar-nav { flex-grow: 1; }
+.nav-link { text-decoration: none; color: var(--text-light); font-weight: 500; padding: 12px 15px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: all 0.3s ease; }
+.nav-link:hover, .nav-link.active { background-color: var(--primary-green); color: var(--white); }
+.main-content { padding: 30px; }
+.btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;}
+.btn-primary { background-color: var(--primary-green); color: var(--white); }
+.btn-secondary { background-color: var(--grey); color: var(--white); }
+.grid-card { background-color: var(--white); border-radius: 8px; padding: 25px; box-shadow: var(--shadow); }
+
+/* Appointments Page Styles */
+.page-title-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+.page-title-header h1 { font-size: 2rem; }
+.tabs { display: flex; gap: 10px; border-bottom: 2px solid var(--border-color); margin-bottom: 30px; }
+.tab-link { padding: 10px 20px; cursor: pointer; background: none; border: none; font-size: 1.1rem; font-weight: 500; color: var(--text-light); border-bottom: 3px solid transparent; transform: translateY(2px); }
+.tab-link.active { color: var(--primary-green); border-bottom-color: var(--primary-green); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ==================== NEW My Documents Page Styles ==================== */
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+.filter-controls .input-group {
+    flex-grow: 1;
+    min-width: 200px;
+}
+.input-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+    display: block;
+}
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--white);
+}
+
+.documents-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.documents-table th, .documents-table td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+.documents-table th {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.documents-table tbody tr:hover {
+    background-color: var(--secondary-green);
+}
+.doc-badge {
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--white);
+    display: inline-block;
+}
+.badge-prescription { background-color: var(--blue); color: var(--white); }
+.badge-lab { background-color: var(--green); color: var(--white); }
+.badge-cert { background-color: var(--orange); color: var(--white); }
+.documents-table .btn-secondary { background-color: var(--text-light); font-size: 0.8rem; padding: 8px 15px; }
+.documents-table .btn-secondary:hover { background-color: var(--text-dark); }
+
+/* ==================== Responsive Styles ==================== */
+@media (max-width: 992px) { .dashboard-container { grid-template-columns: 1fr; } .sidebar { display: none; } }
+>>>>>>> 42c444e (First commit)
 @media (max-width: 768px) { .filter-controls { flex-direction: column; align-items: stretch; } }
