@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +9,9 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kerala_Government_Logo.svg/1200px-Kerala_Government_Logo.svg.png" alt="Logo" class="logo-small">
+                <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kerala_Government_Logo.svg/1200px-Kerala_Government_Logo.svg.png" alt="Logo" class="logo-small"> -->
                 <span>DHRMS Kerala</span>
             </div>
             <nav class="sidebar-nav">
@@ -23,14 +22,15 @@
                 <a href="edit_profile.html" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
                 <a href="helpline.html" class="nav-link active"><i class="fa-solid fa-headset"></i> Helpline</a>
             </nav>
-            <div class="sidebar-footer">
-                <a href="index.html" class="logout-button-full">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </a>
-            </div>
+            <a href="main1.html" class="logout-button-full" style="margin-top:10px;">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
         </aside>
 
         <main class="main-content">
+            <button id="menuToggle" class="menu-toggle" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
             <header class="main-header-content">
                 <h1>Helpline & Support</h1>
                 <p>Get help and find answers to your questions.</p>
@@ -95,6 +95,7 @@
             </div>
         </main>
     </div>
+    <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
 
     <script>
         const accordionButtons = document.querySelectorAll('.accordion-button');
@@ -112,120 +113,164 @@
             });
         });
     </script>
-</body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF--8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helpline - DHRMS</title>
-    <link rel="stylesheet" href="helpline.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body>
-    <div class="dashboard-container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <span>DHRMS Kerala</span>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="patient_dashboard.html" class="nav-link"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-                <a href="medical_history.html" class="nav-link"><i class="fa-solid fa-file-medical"></i> Medical History</a>
-                <a href="my_appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>
-                <a href="my_documents.html" class="nav-link"><i class="fa-solid fa-folder-open"></i> My Documents</a>
-                <a href="edit_profile.html" class="nav-link"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
-                <a href="helpline.html" class="nav-link active"><i class="fa-solid fa-headset"></i> Helpline</a>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="main1.html" class="logout-button-full">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </a>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <header class="main-header-content">
-                <h1>Helpline & Support</h1>
-                <p>Get help and find answers to your questions.</p>
-            </header>
-
-            <div class="helpline-card emergency">
-                <div class="helpline-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                <div class="helpline-info">
-                    <h3>In Case of a Medical Emergency</h3>
-                    <p>For immediate, life-threatening situations, please dial:</p>
-                    <a href="tel:112" class="helpline-number">112</a>
-                    <span>(National Emergency Number)</span>
-                </div>
-            </div>
-
-            <div class="helpline-card">
-                <div class="helpline-icon"><i class="fa-solid fa-phone-volume"></i></div>
-                <div class="helpline-info">
-                    <h3>Kerala Health Helpline (DISHA)</h3>
-                    <p>For health information, services, and support, call:</p>
-                    <a href="tel:1056" class="helpline-number">1056</a>
-                    <a href="tel:1056" class="btn btn-primary" style="margin-top: 10px;">Call Now</a>
-                </div>
-            </div>
-            
-            <div class="accordion-container">
-                <h2 class="section-title">District-Level Contacts</h2>
-                <div class="accordion">
-                    <button class="accordion-button">Ernakulam</button>
-                    <div class="accordion-content">
-                        <p><strong>District Medical Office (DMO):</strong> <a href="tel:04842360802">0484-2360802</a></p>
-                        <p><strong>General Hospital, Ernakulam:</strong> <a href="tel:04842386000">0484-2386000</a></p>
-                    </div>
-
-                    <button class="accordion-button">Kozhikode</button>
-                    <div class="accordion-content">
-                        <p><strong>District Medical Office (DMO):</strong> <a href="tel:04952370491">0495-2370491</a></p>
-                        <p><strong>Govt. Medical College, Kozhikode:</strong> <a href="tel:04952350216">0495-2350216</a></p>
-                    </div>
-                     <button class="accordion-button">Thiruvananthapuram</button>
-                    <div class="accordion-content">
-                        <p><strong>District Medical Office (DMO):</strong> <a href="tel:04712465074">0471-2465074</a></p>
-                        <p><strong>Govt. Medical College, Thiruvananthapuram:</strong> <a href="tel:04712528300">0471-2528300</a></p>
-                    </div>
-                </div>
-
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <div class="accordion">
-                    <button class="accordion-button">How do I schedule a new appointment?</button>
-                    <div class="accordion-content">
-                        <p>You can schedule a new appointment by clicking the "My Appointments" tab in the sidebar, and then clicking the "Schedule New Appointment" button. You will be able to select a hospital, department, and available time slot.</p>
-                    </div>
-                    <button class="accordion-button">What should I do if I lose my Health ID card?</button>
-                    <div class="accordion-content">
-                        <p>You can download a digital copy of your Health ID card anytime from your dashboard. If you need a physical card, please visit the nearest Primary Health Centre (PHC) for assistance.</p>
-                    </div>
-                    <button class="accordion-button">Are the services at government hospitals free?</button>
-                    <div class="accordion-content">
-                        <p>Consultations and many basic services at government health centers are provided free of charge or at a highly subsidized rate. Please inquire at the specific hospital for details about tests and specialized treatments.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
+    <script>
+        (function(){
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('menuToggle');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+            const MOBILE_BP = 992;
+            function isMobile(){ return window.innerWidth <= MOBILE_BP; }
+            function openSidebar(){ if (!isMobile()) return; sidebar.classList.add('open'); overlay.hidden = false; document.body.style.overflow = 'hidden'; }
+            function closeSidebar(){ sidebar.classList.remove('open'); overlay.hidden = true; document.body.style.overflow = ''; }
+            function toggleSidebar(){ if (sidebar.classList.contains('open')) { closeSidebar(); } else { openSidebar(); } }
+            if (toggleBtn) toggleBtn.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+            navLinks.forEach(a => a.addEventListener('click', closeSidebar));
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+            window.addEventListener('resize', () => { if (!isMobile()) { closeSidebar(); } });
+        })();
+    </script>
+<!-- AI Chatbot Assistant -->
+<div id="chatbot-container">
+  <button id="chatbot-toggle" class="chatbot-button">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+  <div id="chatbot-box" class="chatbot-box hidden">
+    <div class="chatbot-header">
+      <span>AI Health Assistant</span>
+      <button id="chatbot-close" class="close-btn">&times;</button>
     </div>
+    <div id="chatbot-messages" class="chatbot-messages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbot-text" placeholder="Ask me anything..." />
+      <button id="chatbot-send"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
 
-    <script>
-        const accordionButtons = document.querySelectorAll('.accordion-button');
+<style>
+  /* Chatbot Styles */
+  #chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+  }
+  .chatbot-button {
+    background: #08953e;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .chatbot-box {
+    width: 320px;
+    height: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .chatbot-box.hidden { display: none; }
+  .chatbot-header {
+    background: #079b3b;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+  }
+  .chatbot-messages .msg {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+  .msg.user { background: #04811f; color: white; align-self: flex-end; }
+  .msg.bot { background: #f1f1f1; align-self: flex-start; }
+  .chatbot-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+  .chatbot-input input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+  }
+  .chatbot-input button {
+    background: #0a6e05;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
 
-        accordionButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                button.classList.toggle('active');
+<script>
+  const chatbotToggle = document.getElementById("chatbot-toggle");
+  const chatbotBox = document.getElementById("chatbot-box");
+  const chatbotClose = document.getElementById("chatbot-close");
+  const chatbotSend = document.getElementById("chatbot-send");
+  const chatbotText = document.getElementById("chatbot-text");
+  const chatbotMessages = document.getElementById("chatbot-messages");
 
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
-        });
-    </script>
+  chatbotToggle.addEventListener("click", () => chatbotBox.classList.toggle("hidden"));
+  chatbotClose.addEventListener("click", () => chatbotBox.classList.add("hidden"));
+
+  function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("msg", sender);
+    msg.textContent = text;
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  chatbotSend.addEventListener("click", sendMessage);
+  chatbotText.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+
+  async function sendMessage() {
+    const text = chatbotText.value.trim();
+    if (!text) return;
+    addMessage(text, "user");
+    chatbotText.value = "";
+
+    // Placeholder response (replace with API call to your backend/AI service)
+    addMessage("Thinking...", "bot");
+
+    try {
+      // Example: call your Node.js/Flask backend
+      // let res = await fetch("http://localhost:5000/chat", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ message: text })
+      // });
+      // let data = await res.json();
+      // document.querySelector(".msg.bot:last-child").textContent = data.reply;
+
+      setTimeout(() => {
+        document.querySelector(".msg.bot:last-child").textContent =
+          "This is a sample AI response. Connect me to your backend for real answers!";
+      }, 1000);
+    } catch (err) {
+      document.querySelector(".msg.bot:last-child").textContent = "Error connecting to server.";
+    }
+  }
+</script>
+
 </body>
->>>>>>> 42c444e (First commit)
 </html>
