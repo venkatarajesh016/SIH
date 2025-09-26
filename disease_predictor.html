@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Predictor - Swasthya Setu</title>
+    <link rel="stylesheet" href="disease_predictor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span>Swasthya Setu</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="doctor_dashboard.html" class="nav-link"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+                <a href="search.html" class="nav-link"><i class="fa-solid fa-magnifying-glass"></i> Search Patient</a>
+                <a href="disease_predictor.html" class="nav-link active"><i class="fa-solid fa-stethoscope"></i> Disease Predictor</a>
+                <a href="report.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Reports</a>
+                <a href="editdoctor.html" class="nav-link"><i class="fa-solid fa-bell"></i> Profile</a>
+            </nav>
+            <a href="main1.html" class="logout-button-full" style="margin-top:10px;">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <button id="menuToggle" class="menu-toggle" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <header class="main-header-content">
+                <h1><i class="fa-solid fa-stethoscope"></i> AI Disease Predictor</h1>
+                <p>Advanced diagnostic support tool to assist in patient symptom analysis and preliminary assessment.</p>
+            </header>
+
+            <!-- Main Predictor Section -->
+            <section class="predictor-main-card">
+                <div class="predictor-intro">
+                    <div class="intro-icon">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div class="intro-content">
+                        <h2>Clinical Diagnostic Assistant</h2>
+                        <p>AI-powered diagnostic support system designed to assist healthcare professionals in symptom analysis and differential diagnosis. Enter patient symptoms for comprehensive assessment.</p>
+                    </div>
+                </div>
+
+                <div class="predictor-form">
+                    <div class="form-section">
+                        <label for="symptom-input">Enter patient symptoms:</label>
+                        <div class="symptom-input-container">
+                            <input type="text" id="symptom-input" placeholder="e.g., fever, headache, cough, fatigue..." class="symptom-input">
+                            <button type="button" id="add-symptom-btn" class="btn btn-secondary add-symptom-btn">
+                                <i class="fa-solid fa-plus"></i> Add
+                            </button>
+                        </div>
+                        <small class="input-help">Press Enter or click Add to include a symptom</small>
+                    </div>
+                    
+                    <div class="selected-symptoms" id="selected-symptoms">
+                        <h4>Selected Symptoms:</h4>
+                        <div class="symptoms-tags" id="symptoms-tags">
+                            <p class="no-symptoms">No symptoms selected yet.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="additional-info">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="duration">Symptom duration:</label>
+                                <select id="duration">
+                                    <option value="">Select duration</option>
+                                    <option value="1-day">Less than 1 day</option>
+                                    <option value="1-3-days">1-3 days</option>
+                                    <option value="3-7-days">3-7 days</option>
+                                    <option value="1-2-weeks">1-2 weeks</option>
+                                    <option value="over-2-weeks">More than 2 weeks</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="severity">Severity level:</label>
+                                <select id="severity">
+                                    <option value="">Select severity</option>
+                                    <option value="mild">Mild</option>
+                                    <option value="moderate">Moderate</option>
+                                    <option value="severe">Severe</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="predictor-actions">
+                        <button type="button" id="predict-btn" class="btn btn-primary predict-btn" disabled>
+                            <i class="fa-solid fa-brain"></i> Generate Diagnosis
+                        </button>
+                        <button type="button" id="clear-symptoms-btn" class="btn btn-secondary">
+                            <i class="fa-solid fa-trash"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="prediction-results" id="prediction-results" style="display: none;">
+                <div class="results-header">
+                    <h3><i class="fa-solid fa-chart-line"></i> Diagnostic Assessment</h3>
+                </div>
+                
+                <div class="prediction-content" id="prediction-content">
+                    <!-- Results will be populated here -->
+                </div>
+                
+                <div class="medical-disclaimer">
+                    <div class="disclaimer-icon">
+                        <i class="fa-solid fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="disclaimer-content">
+                        <h4>Important Medical Disclaimer</h4>
+                        <p>This prediction is for informational and educational purposes only. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare professional for proper medical evaluation.</p>
+                    </div>
+                </div>
+                
+                <div class="recommendation-actions">
+                    <button type="button" id="save-diagnosis-btn" class="btn btn-primary">
+                        <i class="fa-solid fa-file-medical"></i> Save to Patient Record
+                    </button>
+                    <button type="button" id="print-results-btn" class="btn btn-secondary">
+                        <i class="fa-solid fa-print"></i> Print Report
+                    </button>
+                    <a href="search.html" class="btn btn-outline">
+                        <i class="fa-solid fa-magnifying-glass"></i> Search Another Patient
+                    </a>
+                </div>
+            </section>
+
+            <!-- Common Conditions Section -->
+            <section class="common-conditions">
+                <h3><i class="fa-solid fa-info-circle"></i> Common Health Conditions</h3>
+                <div class="conditions-grid">
+                    <div class="condition-card" data-condition="cold">
+                        <div class="condition-icon">
+                            <i class="fa-solid fa-head-side-cough"></i>
+                        </div>
+                        <h4>Common Cold</h4>
+                        <p>Runny nose, sneezing, mild fever</p>
+                    </div>
+                    <div class="condition-card" data-condition="flu">
+                        <div class="condition-icon">
+                            <i class="fa-solid fa-thermometer-half"></i>
+                        </div>
+                        <h4>Flu (Influenza)</h4>
+                        <p>High fever, body aches, fatigue</p>
+                    </div>
+                    <div class="condition-card" data-condition="headache">
+                        <div class="condition-icon">
+                            <i class="fa-solid fa-head-side-virus"></i>
+                        </div>
+                        <h4>Headache</h4>
+                        <p>Head pain, tension, sensitivity</p>
+                    </div>
+                    <div class="condition-card" data-condition="allergies">
+                        <div class="condition-icon">
+                            <i class="fa-solid fa-allergies"></i>
+                        </div>
+                        <h4>Allergies</h4>
+                        <p>Sneezing, itchy eyes, runny nose</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
+    <script>
+        // Sidebar functionality
+        (function(){
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('menuToggle');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+            const MOBILE_BP = 992;
+            
+            function isMobile(){ return window.innerWidth <= MOBILE_BP; }
+            function openSidebar(){ if (!isMobile()) return; sidebar.classList.add('open'); overlay.hidden = false; document.body.style.overflow = 'hidden'; }
+            function closeSidebar(){ sidebar.classList.remove('open'); overlay.hidden = true; document.body.style.overflow = ''; }
+            function toggleSidebar(){ if (sidebar.classList.contains('open')) { closeSidebar(); } else { openSidebar(); } }
+            
+            if (toggleBtn) toggleBtn.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+            navLinks.forEach(a => a.addEventListener('click', closeSidebar));
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+            window.addEventListener('resize', () => { if (!isMobile()) { closeSidebar(); } });
+        })();
+
+        // Disease predictor functionality
+        class DiseasePredictor {
+            constructor() {
+                this.symptoms = [];
+                this.initializeElements();
+                this.bindEvents();
+                this.diseaseDatabase = this.initializeDiseaseDatabase();
+            }
+
+            initializeElements() {
+                this.symptomInput = document.getElementById('symptom-input');
+                this.addSymptomBtn = document.getElementById('add-symptom-btn');
+                this.symptomsContainer = document.getElementById('symptoms-tags');
+                this.predictBtn = document.getElementById('predict-btn');
+                this.clearBtn = document.getElementById('clear-symptoms-btn');
+                this.resultsSection = document.getElementById('prediction-results');
+                this.resultsContent = document.getElementById('prediction-content');
+                this.durationSelect = document.getElementById('duration');
+                this.severitySelect = document.getElementById('severity');
+            }
+
+            bindEvents() {
+                this.addSymptomBtn.addEventListener('click', () => this.addSymptom());
+                this.symptomInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.addSymptom();
+                });
+                this.predictBtn.addEventListener('click', () => this.predictDisease());
+                this.clearBtn.addEventListener('click', () => this.clearSymptoms());
+                
+                // Common condition cards
+                document.querySelectorAll('.condition-card').forEach(card => {
+                    card.addEventListener('click', () => this.loadCommonCondition(card.dataset.condition));
+                });
+            }
+
+            addSymptom() {
+                const symptom = this.symptomInput.value.trim().toLowerCase();
+                if (symptom && !this.symptoms.includes(symptom)) {
+                    this.symptoms.push(symptom);
+                    this.renderSymptoms();
+                    this.symptomInput.value = '';
+                    this.updatePredictButton();
+                }
+            }
+
+            removeSymptom(symptom) {
+                this.symptoms = this.symptoms.filter(s => s !== symptom);
+                this.renderSymptoms();
+                this.updatePredictButton();
+            }
+
+            renderSymptoms() {
+                if (this.symptoms.length === 0) {
+                    this.symptomsContainer.innerHTML = '<p class="no-symptoms">No symptoms selected yet.</p>';
+                } else {
+                    this.symptomsContainer.innerHTML = this.symptoms.map(symptom => 
+                        `<span class="symptom-tag">
+                            ${symptom}
+                            <button class="remove-symptom" onclick="predictor.removeSymptom('${symptom}')">
+                                <i class="fa-solid fa-times"></i>
+                            </button>
+                        </span>`
+                    ).join('');
+                }
+            }
+
+            updatePredictButton() {
+                this.predictBtn.disabled = this.symptoms.length === 0;
+            }
+
+            clearSymptoms() {
+                this.symptoms = [];
+                this.renderSymptoms();
+                this.updatePredictButton();
+                this.resultsSection.style.display = 'none';
+                this.durationSelect.value = '';
+                this.severitySelect.value = '';
+            }
+
+            initializeDiseaseDatabase() {
+                return {
+                    'common cold': {
+                        symptoms: ['runny nose', 'sneezing', 'cough', 'sore throat', 'mild fever', 'congestion'],
+                        description: 'A viral infection of the upper respiratory tract',
+                        severity: 'Mild',
+                        recommendations: ['Rest', 'Stay hydrated', 'Use saline nasal drops', 'Consider over-the-counter medications'],
+                        when_to_see_doctor: 'If symptoms persist for more than 10 days or worsen'
+                    },
+                    'influenza': {
+                        symptoms: ['high fever', 'body aches', 'fatigue', 'headache', 'cough', 'sore throat', 'chills'],
+                        description: 'A viral infection that attacks the respiratory system',
+                        severity: 'Moderate to Severe',
+                        recommendations: ['Bed rest', 'Plenty of fluids', 'Antiviral medications (if prescribed)', 'Pain relievers'],
+                        when_to_see_doctor: 'If you have difficulty breathing, persistent chest pain, or high fever'
+                    },
+                    'headache': {
+                        symptoms: ['head pain', 'tension', 'sensitivity to light', 'nausea'],
+                        description: 'Pain in the head or neck region',
+                        severity: 'Mild to Moderate',
+                        recommendations: ['Rest in a dark room', 'Apply cold compress', 'Stay hydrated', 'Over-the-counter pain relievers'],
+                        when_to_see_doctor: 'If headaches are severe, frequent, or accompanied by other symptoms'
+                    },
+                    'allergies': {
+                        symptoms: ['sneezing', 'itchy eyes', 'runny nose', 'congestion', 'watery eyes'],
+                        description: 'Immune system reaction to allergens',
+                        severity: 'Mild to Moderate',
+                        recommendations: ['Avoid known allergens', 'Use antihistamines', 'Keep windows closed during pollen season'],
+                        when_to_see_doctor: 'If symptoms interfere with daily activities or worsen'
+                    },
+                    'gastroenteritis': {
+                        symptoms: ['nausea', 'vomiting', 'diarrhea', 'stomach pain', 'fever', 'dehydration'],
+                        description: 'Inflammation of the stomach and intestines',
+                        severity: 'Moderate',
+                        recommendations: ['Stay hydrated', 'BRAT diet (Banana, Rice, Applesauce, Toast)', 'Rest', 'Avoid dairy'],
+                        when_to_see_doctor: 'If severe dehydration, blood in stool, or symptoms persist'
+                    }
+                };
+            }
+
+            predictDisease() {
+                this.predictBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing...';
+                this.predictBtn.disabled = true;
+
+                // Simulate AI processing delay
+                setTimeout(() => {
+                    const predictions = this.analyzeSymptoms();
+                    this.displayResults(predictions);
+                    this.predictBtn.innerHTML = '<i class="fa-solid fa-brain"></i> Generate Diagnosis';
+                    this.predictBtn.disabled = false;
+                }, 2000);
+            }
+
+            analyzeSymptoms() {
+                const predictions = [];
+                
+                // Simple symptom matching algorithm
+                for (const [disease, data] of Object.entries(this.diseaseDatabase)) {
+                    const matchingSymptoms = this.symptoms.filter(symptom => 
+                        data.symptoms.some(diseaseSymptom => 
+                            diseaseSymptom.includes(symptom) || symptom.includes(diseaseSymptom)
+                        )
+                    );
+                    
+                    if (matchingSymptoms.length > 0) {
+                        const confidence = (matchingSymptoms.length / data.symptoms.length) * 100;
+                        predictions.push({
+                            disease,
+                            confidence: Math.min(confidence, 85), // Cap at 85% for safety
+                            matchingSymptoms,
+                            data
+                        });
+                    }
+                }
+
+                // Sort by confidence
+                predictions.sort((a, b) => b.confidence - a.confidence);
+                
+                // If no matches, provide general advice
+                if (predictions.length === 0) {
+                    return [{
+                        disease: 'Unspecified Condition',
+                        confidence: 0,
+                        matchingSymptoms: this.symptoms,
+                        data: {
+                            description: 'Your symptoms don\'t match common conditions in our database',
+                            severity: 'Unknown',
+                            recommendations: ['Monitor your symptoms', 'Stay hydrated', 'Get adequate rest'],
+                            when_to_see_doctor: 'Consider consulting a healthcare provider for proper evaluation'
+                        }
+                    }];
+                }
+
+                return predictions.slice(0, 3); // Return top 3 predictions
+            }
+
+            displayResults(predictions) {
+                const duration = this.durationSelect.value;
+                const severity = this.severitySelect.value;
+
+                let resultsHTML = `
+                    <div class="prediction-summary">
+                        <h4>Based on your symptoms: ${this.symptoms.join(', ')}</h4>
+                        ${duration ? `<p><strong>Duration:</strong> ${duration.replace('-', ' ')}</p>` : ''}
+                        ${severity ? `<p><strong>Severity Level:</strong> ${severity}</p>` : ''}
+                    </div>
+                `;
+
+                predictions.forEach((prediction, index) => {
+                    const confidenceColor = prediction.confidence > 60 ? '#e74c3c' : 
+                                          prediction.confidence > 40 ? '#f39c12' : '#27ae60';
+                    
+                    resultsHTML += `
+                        <div class="prediction-item ${index === 0 ? 'primary-prediction' : ''}">
+                            <div class="prediction-header">
+                                <h4>${this.formatDiseaseName(prediction.disease)}</h4>
+                                <div class="confidence-badge" style="background-color: ${confidenceColor}">
+                                    ${Math.round(prediction.confidence)}% Match
+                                </div>
+                            </div>
+                            <p class="disease-description">${prediction.data.description}</p>
+                            
+                            ${prediction.matchingSymptoms.length > 0 ? `
+                                <div class="matching-symptoms">
+                                    <strong>Matching symptoms:</strong> ${prediction.matchingSymptoms.join(', ')}
+                                </div>
+                            ` : ''}
+                            
+                            <div class="severity-indicator">
+                                <strong>Typical Severity:</strong> <span class="severity-${prediction.data.severity.toLowerCase().replace(' ', '-')}">${prediction.data.severity}</span>
+                            </div>
+                            
+                            <div class="recommendations">
+                                <strong>Recommendations:</strong>
+                                <ul>
+                                    ${prediction.data.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="doctor-advice">
+                                <strong>When to see a doctor:</strong> ${prediction.data.when_to_see_doctor}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                this.resultsContent.innerHTML = resultsHTML;
+                this.resultsSection.style.display = 'block';
+                this.resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            formatDiseaseName(disease) {
+                return disease.split(' ').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+            }
+
+            loadCommonCondition(condition) {
+                const conditionSymptoms = {
+                    'cold': ['runny nose', 'sneezing', 'cough', 'sore throat'],
+                    'flu': ['fever', 'body aches', 'fatigue', 'headache'],
+                    'headache': ['head pain', 'tension', 'sensitivity to light'],
+                    'allergies': ['sneezing', 'itchy eyes', 'runny nose']
+                };
+
+                this.clearSymptoms();
+                this.symptoms = [...conditionSymptoms[condition]];
+                this.renderSymptoms();
+                this.updatePredictButton();
+            }
+        }
+
+        // Initialize the predictor
+        const predictor = new DiseasePredictor();
+    </script>
+
+<!-- AI Chatbot Assistant -->
+<div id="chatbot-container">
+  <button id="chatbot-toggle" class="chatbot-button">
+    <i class="fa-solid fa-robot"></i>
+  </button>
+  <div id="chatbot-box" class="chatbot-box hidden">
+    <div class="chatbot-header">
+      <span>AI Health Assistant</span>
+      <button id="chatbot-close" class="close-btn">&times;</button>
+    </div>
+    <div id="chatbot-messages" class="chatbot-messages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbot-text" placeholder="Ask me anything..." />
+      <button id="chatbot-send"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Chatbot Styles */
+  #chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+  }
+  .chatbot-button {
+    background: #08953e;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .chatbot-box {
+    width: 320px;
+    height: 400px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .chatbot-box.hidden { display: none; }
+  .chatbot-header {
+    background: #079b3b;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+  }
+  .chatbot-messages .msg {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+  .msg.user { background: #04811f; color: white; align-self: flex-end; }
+  .msg.bot { background: #f1f1f1; align-self: flex-start; }
+  .chatbot-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+  .chatbot-input input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+  }
+  .chatbot-input button {
+    background: #0a6e05;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  const chatbotToggle = document.getElementById("chatbot-toggle");
+  const chatbotBox = document.getElementById("chatbot-box");
+  const chatbotClose = document.getElementById("chatbot-close");
+  const chatbotSend = document.getElementById("chatbot-send");
+  const chatbotText = document.getElementById("chatbot-text");
+  const chatbotMessages = document.getElementById("chatbot-messages");
+
+  chatbotToggle.addEventListener("click", () => chatbotBox.classList.toggle("hidden"));
+  chatbotClose.addEventListener("click", () => chatbotBox.classList.add("hidden"));
+
+  function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("msg", sender);
+    msg.textContent = text;
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  chatbotSend.addEventListener("click", sendMessage);
+  chatbotText.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+
+  async function sendMessage() {
+    const text = chatbotText.value.trim();
+    if (!text) return;
+    addMessage(text, "user");
+    chatbotText.value = "";
+
+    // Placeholder response (replace with API call to your backend/AI service)
+    addMessage("Thinking...", "bot");
+
+    try {
+      setTimeout(() => {
+        document.querySelector(".msg.bot:last-child").textContent =
+          "This is a sample AI response. Connect me to your backend for real answers!";
+      }, 1000);
+    } catch (err) {
+      document.querySelector(".msg.bot:last-child").textContent = "Error connecting to server.";
+    }
+  }
+</script>
+
+</body>
+</html>
