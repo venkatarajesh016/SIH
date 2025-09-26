@@ -12,7 +12,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <!-- <img sr    c="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Kerala_Government_Logo.svg/1200px-Kerala_Government_Logo.svg.png" alt="Logo" class="logo-small"> -->
-                <span>DHRMS Kerala</span>
+                <span>Swasthya Setu</span>
             </div>
             <nav class="sidebar-nav">
                 <a href="patient_dashboard.html" class="nav-link active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
@@ -148,13 +148,13 @@
             try { last = JSON.parse(localStorage.getItem('lastRegisteredPatient') || 'null'); } catch(_) {}
             const data = last || {};
 
-            const name = (data.fullName) || 'Patient';
-            const healthId = urlHealthId || data.healthId || '—';
-            const age = data.age || '';
-            const gender = data.gender || '';
-            const blood = data.bloodGroup || '';
-            const contact = data.mobile || '';
-            const photo = data.photoUrl || '';
+            const name = (data.fullName) || 'Rahul Kumar';
+            const healthId = urlHealthId || data.healthId || 'KMW-2025-8451';
+            const age = data.age || '32';
+            const gender = data.gender || 'Male';
+            const blood = data.bloodGroup || 'O+';
+            const contact = data.mobile || '7423832323';
+            const photo = data.photoUrl || 'WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg';
 
             const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
             setText('sidebarName', name);
