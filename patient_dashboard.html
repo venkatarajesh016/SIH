@@ -87,6 +87,21 @@
                      <a href="#" class="card-link">View All Alerts</a>
                 </div>
 
+                <div class="grid-card health-advisories" id="health-advisories-card" style="display: none;">
+                    <h3><i class="fa-solid fa-user-doctor"></i> Health Advisory from Doctor</h3>
+                    <div id="health-advisories-content">
+                        <!-- Health advisories will be loaded here -->
+                    </div>
+                    <div class="advisory-actions" id="advisory-actions" style="display: none;">
+                        <button id="mark-read-btn" class="btn btn-primary">
+                            <i class="fa-solid fa-check"></i> Mark as Read
+                        </button>
+                        <button id="view-all-advisories-btn" class="btn btn-secondary">
+                            <i class="fa-solid fa-eye"></i> View All Advisories
+                        </button>
+                    </div>
+                </div>
+
                 <div class="grid-card full-width">
                     <h3><i class="fa-solid fa-notes-medical"></i> Recent Medical History</h3>
                     <table>
@@ -287,6 +302,146 @@
 
 		hydrateFromSupabase();
 	</script>
+
+    <!-- Health Advisories JavaScript -->
+    <script>
+        // Load health advisories from localStorage
+        function loadHealthAdvisories() {
+            const params = new URLSearchParams(window.location.search);
+            const urlHealthId = params.get('healthId');
+            let last = null;
+            try { last = JSON.parse(localStorage.getItem('lastRegisteredPatient') || 'null'); } catch(_) {}
+            const currentPatientId = urlHealthId || (last && last.healthId) || 'KMW-2025-8451';
+            
+            const advisories = JSON.parse(localStorage.getItem('patientAdvisories') || '[]');
+            const patientAdvisories = advisories.filter(advisory => 
+                advisory.patientId === currentPatientId && advisory.status === 'unread'
+            );
+
+            const advisoriesCard = document.getElementById('health-advisories-card');
+            const advisoriesContent = document.getElementById('health-advisories-content');
+            const advisoryActions = document.getElementById('advisory-actions');
+
+            if (patientAdvisories.length > 0) {
+                advisoriesCard.style.display = 'block';
+                advisoryActions.style.display = 'flex';
+                
+                // Display the latest advisory
+                const latestAdvisory = patientAdvisories[patientAdvisories.length - 1];
+                const advisoryDate = new Date(latestAdvisory.timestamp).toLocaleDateString();
+                const advisoryTime = new Date(latestAdvisory.timestamp).toLocaleTimeString();
+
+                advisoriesContent.innerHTML = `
+                    <div class="advisory-header">
+                        <div class="advisory-badge new">New Advisory</div>
+                        <div class="advisory-meta">
+                            <p><strong>From:</strong> ${latestAdvisory.doctor}</p>
+                            <p><strong>Date:</strong> ${advisoryDate} at ${advisoryTime}</p>
+                            <p><strong>Symptoms Analyzed:</strong> ${latestAdvisory.symptoms.join(', ')}</p>
+                        </div>
+                    </div>
+                    <div class="advisory-content">
+                        ${latestAdvisory.recommendations}
+                    </div>
+                    ${patientAdvisories.length > 1 ? `<p class="more-advisories">+ ${patientAdvisories.length - 1} more advisory(ies) from your doctor</p>` : ''}
+                `;
+
+                // Bind event listeners
+                document.getElementById('mark-read-btn').addEventListener('click', function() {
+                    markAdvisoryAsRead(latestAdvisory.id);
+                });
+
+                document.getElementById('view-all-advisories-btn').addEventListener('click', function() {
+                    showAllAdvisories(patientAdvisories);
+                });
+
+                // Add notification badge animation
+                setTimeout(() => {
+                    const badge = document.querySelector('.advisory-badge.new');
+                    if (badge) badge.classList.add('pulse');
+                }, 500);
+            }
+        }
+
+        function markAdvisoryAsRead(advisoryId) {
+            const advisories = JSON.parse(localStorage.getItem('patientAdvisories') || '[]');
+            const updatedAdvisories = advisories.map(advisory => {
+                if (advisory.id === advisoryId) {
+                    advisory.status = 'read';
+                }
+                return advisory;
+            });
+            
+            localStorage.setItem('patientAdvisories', JSON.stringify(updatedAdvisories));
+            document.getElementById('health-advisories-card').style.display = 'none';
+            
+            // Show success message
+            alert('Advisory marked as read!');
+        }
+
+        function showAllAdvisories(advisories) {
+            let modalHTML = `
+                <div class="modal-overlay" id="advisories-modal">
+                    <div class="modal-content advisories-modal">
+                        <div class="modal-header">
+                            <h3><i class="fa-solid fa-user-doctor"></i> All Health Advisories</h3>
+                            <button class="close-modal" onclick="closeAdvisoriesModal()">
+                                <i class="fa-solid fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+            `;
+
+            advisories.forEach((advisory, index) => {
+                const advisoryDate = new Date(advisory.timestamp).toLocaleDateString();
+                const advisoryTime = new Date(advisory.timestamp).toLocaleTimeString();
+                
+                modalHTML += `
+                    <div class="advisory-item ${index === advisories.length - 1 ? 'latest' : ''}">
+                        <div class="advisory-header">
+                            <h4>Advisory #${advisories.length - index}</h4>
+                            <span class="advisory-date">${advisoryDate} at ${advisoryTime}</span>
+                        </div>
+                        <div class="advisory-meta">
+                            <p><strong>Doctor:</strong> ${advisory.doctor}</p>
+                            <p><strong>Symptoms:</strong> ${advisory.symptoms.join(', ')}</p>
+                            ${advisory.duration ? `<p><strong>Duration:</strong> ${advisory.duration.replace('-', ' ')}</p>` : ''}
+                            ${advisory.severity ? `<p><strong>Severity:</strong> ${advisory.severity}</p>` : ''}
+                        </div>
+                        <div class="advisory-content">
+                            ${advisory.recommendations}
+                        </div>
+                    </div>
+                `;
+            });
+
+            modalHTML += `
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" onclick="closeAdvisoriesModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        function closeAdvisoriesModal() {
+            const modal = document.getElementById('advisories-modal');
+            if (modal) modal.remove();
+        }
+
+        // Load advisories when page loads
+        document.addEventListener('DOMContentLoaded', loadHealthAdvisories);
+        
+        // Also load when page becomes visible (in case advisories were added while page was hidden)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                setTimeout(loadHealthAdvisories, 500);
+            }
+        });
+    </script>
 <!-- AI Chatbot Assistant -->
 <div id="chatbot-container">
   <button id="chatbot-toggle" class="chatbot-button">

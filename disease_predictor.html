@@ -42,11 +42,36 @@
                     </div>
                     <div class="intro-content">
                         <h2>Clinical Diagnostic Assistant</h2>
-                        <p>AI-powered diagnostic support system designed to assist healthcare professionals in symptom analysis and differential diagnosis. Enter patient symptoms for comprehensive assessment.</p>
+                        <p>AI-powered diagnostic support system designed to assist healthcare professionals in symptom analysis and send personalized health recommendations directly to patient dashboard.</p>
                     </div>
                 </div>
 
                 <div class="predictor-form">
+                    <!-- Patient Selection Section -->
+                    <div class="patient-selection">
+                        <h3><i class="fa-solid fa-user-injured"></i> Select Patient</h3>
+                        <div class="input-group">
+                            <label for="patient-id-input">Patient Health ID:</label>
+                            <div class="patient-input-container">
+                                <input type="text" id="patient-id-input" placeholder="e.g., KMW-2025-8451" class="patient-id-input">
+                                <button type="button" id="verify-patient-btn" class="btn btn-outline">
+                                    <i class="fa-solid fa-search"></i> Verify
+                                </button>
+                            </div>
+                        </div>
+                        <div id="patient-info" class="patient-info" style="display: none;">
+                            <div class="patient-card">
+                                <img id="patient-photo" src="" alt="Patient Photo" class="patient-avatar">
+                                <div class="patient-details">
+                                    <h4 id="patient-name">Patient Name</h4>
+                                    <p><strong>Age:</strong> <span id="patient-age">--</span> | <strong>Gender:</strong> <span id="patient-gender">--</span></p>
+                                    <p><strong>Blood Group:</strong> <span id="patient-blood">--</span> | <strong>Contact:</strong> <span id="patient-contact">--</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms Input Section -->
                     <div class="form-section">
                         <label for="symptom-input">Enter patient symptoms:</label>
                         <div class="symptom-input-container">
@@ -93,6 +118,9 @@
                     <div class="predictor-actions">
                         <button type="button" id="predict-btn" class="btn btn-primary predict-btn" disabled>
                             <i class="fa-solid fa-brain"></i> Generate Diagnosis
+                        </button>
+                        <button type="button" id="send-to-patient-btn" class="btn btn-success" disabled style="display: none;">
+                            <i class="fa-solid fa-paper-plane"></i> Send to Patient
                         </button>
                         <button type="button" id="clear-symptoms-btn" class="btn btn-secondary">
                             <i class="fa-solid fa-trash"></i> Clear All
@@ -197,16 +225,22 @@
         class DiseasePredictor {
             constructor() {
                 this.symptoms = [];
+                this.currentPatient = null;
+                this.currentPredictions = null;
                 this.initializeElements();
                 this.bindEvents();
                 this.diseaseDatabase = this.initializeDiseaseDatabase();
             }
 
             initializeElements() {
+                this.patientIdInput = document.getElementById('patient-id-input');
+                this.verifyPatientBtn = document.getElementById('verify-patient-btn');
+                this.patientInfo = document.getElementById('patient-info');
                 this.symptomInput = document.getElementById('symptom-input');
                 this.addSymptomBtn = document.getElementById('add-symptom-btn');
                 this.symptomsContainer = document.getElementById('symptoms-tags');
                 this.predictBtn = document.getElementById('predict-btn');
+                this.sendToPatientBtn = document.getElementById('send-to-patient-btn');
                 this.clearBtn = document.getElementById('clear-symptoms-btn');
                 this.resultsSection = document.getElementById('prediction-results');
                 this.resultsContent = document.getElementById('prediction-content');
@@ -215,11 +249,16 @@
             }
 
             bindEvents() {
+                this.verifyPatientBtn.addEventListener('click', () => this.verifyPatient());
+                this.patientIdInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.verifyPatient();
+                });
                 this.addSymptomBtn.addEventListener('click', () => this.addSymptom());
                 this.symptomInput.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter') this.addSymptom();
                 });
                 this.predictBtn.addEventListener('click', () => this.predictDisease());
+                this.sendToPatientBtn.addEventListener('click', () => this.sendToPatient());
                 this.clearBtn.addEventListener('click', () => this.clearSymptoms());
                 
                 // Common condition cards
@@ -228,20 +267,70 @@
                 });
             }
 
+            verifyPatient() {
+                const patientId = this.patientIdInput.value.trim();
+                if (!patientId) {
+                    alert('Please enter a Patient Health ID');
+                    return;
+                }
+
+                // Simulate patient verification (in real app, this would be an API call)
+                const mockPatients = {
+                    'KMW-2025-8451': {
+                        name: 'Rahul Kumar',
+                        age: 32,
+                        gender: 'Male',
+                        bloodGroup: 'O+',
+                        mobile: '9876543210',
+                        photo: 'WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg'
+                    },
+                    'KMW-2025-8390': {
+                        name: 'Sunita Devi',
+                        age: 27,
+                        gender: 'Female',
+                        bloodGroup: 'A+',
+                        mobile: '9876543211',
+                        photo: 'WhatsApp Image 2025-09-20 at 01.05.45_a7111c28.jpg'
+                    }
+                };
+
+                const patient = mockPatients[patientId];
+                if (patient) {
+                    this.currentPatient = { id: patientId, ...patient };
+                    this.displayPatientInfo(patient);
+                    this.updateFormState();
+                } else {
+                    alert('Patient not found. Please check the Health ID.');
+                    this.patientInfo.style.display = 'none';
+                    this.currentPatient = null;
+                    this.updateFormState();
+                }
+            }
+
+            displayPatientInfo(patient) {
+                document.getElementById('patient-name').textContent = patient.name;
+                document.getElementById('patient-age').textContent = patient.age;
+                document.getElementById('patient-gender').textContent = patient.gender;
+                document.getElementById('patient-blood').textContent = patient.bloodGroup;
+                document.getElementById('patient-contact').textContent = patient.mobile;
+                document.getElementById('patient-photo').src = patient.photo;
+                this.patientInfo.style.display = 'block';
+            }
+
             addSymptom() {
                 const symptom = this.symptomInput.value.trim().toLowerCase();
                 if (symptom && !this.symptoms.includes(symptom)) {
                     this.symptoms.push(symptom);
                     this.renderSymptoms();
                     this.symptomInput.value = '';
-                    this.updatePredictButton();
+                    this.updateFormState();
                 }
             }
 
             removeSymptom(symptom) {
                 this.symptoms = this.symptoms.filter(s => s !== symptom);
                 this.renderSymptoms();
-                this.updatePredictButton();
+                this.updateFormState();
             }
 
             renderSymptoms() {
@@ -259,17 +348,104 @@
                 }
             }
 
-            updatePredictButton() {
-                this.predictBtn.disabled = this.symptoms.length === 0;
+            updateFormState() {
+                const hasSymptoms = this.symptoms.length > 0;
+                this.predictBtn.disabled = !hasSymptoms;
+                
+                // Show send to patient button only if we have predictions and a patient selected
+                const canSendToPatient = this.currentPatient && this.currentPredictions && hasSymptoms;
+                this.sendToPatientBtn.style.display = canSendToPatient ? 'inline-flex' : 'none';
+                this.sendToPatientBtn.disabled = !canSendToPatient;
+            }
+
+            sendToPatient() {
+                if (!this.currentPatient || !this.currentPredictions) return;
+
+                this.sendToPatientBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                this.sendToPatientBtn.disabled = true;
+
+                // Create health advisory
+                const duration = this.durationSelect.value;
+                const severity = this.severitySelect.value;
+                
+                let recommendationsHTML = `
+                    <div class="preview-header">
+                        <h5>Health Advisory for ${this.currentPatient.name} (${this.currentPatient.id})</h5>
+                        <p><strong>Symptoms:</strong> ${this.symptoms.join(', ')}</p>
+                        ${duration ? `<p><strong>Duration:</strong> ${duration.replace('-', ' ')}</p>` : ''}
+                        ${severity ? `<p><strong>Severity:</strong> ${severity}</p>` : ''}
+                    </div>
+                `;
+
+                this.currentPredictions.forEach((prediction) => {
+                    recommendationsHTML += `
+                        <div class="prediction-item-preview">
+                            <h6>${this.formatDiseaseName(prediction.disease)}</h6>
+                            <p class="description">${prediction.data.description}</p>
+                            <div class="recommendations-preview">
+                                <strong>Recommendations:</strong>
+                                <ul>
+                                    ${prediction.data.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="doctor-note">
+                                <strong>When to seek medical attention:</strong> ${prediction.data.when_to_see_doctor}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                recommendationsHTML += `
+                    <div class="medical-note">
+                        <p><strong>Note from Healthcare Provider:</strong></p>
+                        <p>This health advisory is based on AI analysis of reported symptoms. Please follow the recommendations and don't hesitate to contact us if symptoms worsen.</p>
+                    </div>
+                `;
+
+                // Simulate sending to patient (in real app, this would be an API call)
+                setTimeout(() => {
+                    const advisory = {
+                        id: Date.now(),
+                        patientId: this.currentPatient.id,
+                        patientName: this.currentPatient.name,
+                        doctor: 'Dr. Healthcare Provider',
+                        symptoms: this.symptoms,
+                        duration: duration,
+                        severity: severity,
+                        recommendations: recommendationsHTML,
+                        timestamp: new Date().toISOString(),
+                        status: 'unread'
+                    };
+
+                    // Store in localStorage
+                    const existingAdvisories = JSON.parse(localStorage.getItem('patientAdvisories') || '[]');
+                    existingAdvisories.push(advisory);
+                    localStorage.setItem('patientAdvisories', JSON.stringify(existingAdvisories));
+
+                    this.sendToPatientBtn.innerHTML = '<i class="fa-solid fa-check"></i> Sent Successfully!';
+                    
+                    alert(`Health advisory successfully sent to ${this.currentPatient.name}!\nThe patient will see this on their dashboard.`);
+                    
+                    // Reset form after 2 seconds
+                    setTimeout(() => {
+                        this.clearSymptoms();
+                    }, 2000);
+                }, 1500);
             }
 
             clearSymptoms() {
                 this.symptoms = [];
+                this.currentPatient = null;
+                this.currentPredictions = null;
+                this.patientIdInput.value = '';
+                this.patientInfo.style.display = 'none';
                 this.renderSymptoms();
-                this.updatePredictButton();
+                this.updateFormState();
                 this.resultsSection.style.display = 'none';
                 this.durationSelect.value = '';
                 this.severitySelect.value = '';
+                this.sendToPatientBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send to Patient';
+                this.sendToPatientBtn.disabled = false;
             }
 
             initializeDiseaseDatabase() {
@@ -319,9 +495,10 @@
                 // Simulate AI processing delay
                 setTimeout(() => {
                     const predictions = this.analyzeSymptoms();
+                    this.currentPredictions = predictions;
                     this.displayResults(predictions);
                     this.predictBtn.innerHTML = '<i class="fa-solid fa-brain"></i> Generate Diagnosis';
-                    this.predictBtn.disabled = false;
+                    this.updateFormState();
                 }, 2000);
             }
 

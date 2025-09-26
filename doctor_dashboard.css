@@ -1052,7 +1052,7 @@ legend {
   transition: color 0.2s;
 }
 
-.card-link:hover {
-  color: #0d7a32;
-  text-decoration: underline;
-}
+    .card-link:hover {
+        color: #0d7a32;
+        text-decoration: underline;
+    }
