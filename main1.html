@@ -1,758 +1,1595 @@
- 
- <!-- updated one -->
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Digital Health Record System</title>
+    <title>Swastya Setu - Digital Health Record System</title>
+    <meta name="description" content="Comprehensive digital healthcare management system with portable health records, AI analytics, and secure cloud storage.">
+    <meta name="keywords" content="digital health, medical records, healthcare, AI analytics, health card">
     <style>
         :root {
-            --brand: #0077b6;
-            --muted: #f1fbff;
-            --accent: #00b894;
-            --card-shadow: 0 6px 20px rgba(2, 62, 138, 0.08);
-            --radius: 12px;
-            --light-gray: #f3f4f6;
-            --medium-gray: #d1d5db;
-            --dark-gray: #4b5563;
-            --text-color: #1f2937;
-            --primary-color: #22c55e;
+            /* Healthcare Brand Colors */
+            --primary: 207 90% 54%;
+            --primary-foreground: 0 0% 100%;
+            --primary-glow: 207 100% 65%;
+            
+            /* Medical UI Colors */
+            --secondary: 152 69% 31%;
+            --secondary-foreground: 0 0% 100%;
+            
+            --accent: 39 100% 57%;
+            --accent-foreground: 0 0% 100%;
+            
+            --medical-blue: 211 100% 50%;
+            --medical-green: 142 76% 36%;
+            --medical-red: 0 84% 60%;
+            
+            /* Neutral Palette */
+            --background: 0 0% 100%;
+            --foreground: 224 71% 4%;
+            
+            --card: 0 0% 100%;
+            --card-foreground: 224 71% 4%;
+            
+            --popover: 0 0% 100%;
+            --popover-foreground: 224 71% 4%;
+            
+            --muted: 220 14% 96%;
+            --muted-foreground: 220 9% 46%;
+            
+            --border: 220 13% 91%;
+            --input: 220 13% 91%;
+            --ring: 207 90% 54%;
+            
+            --destructive: 0 84% 60%;
+            --destructive-foreground: 0 0% 98%;
+            
+            /* Healthcare Gradients */
+            --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+            --gradient-card: linear-gradient(145deg, hsl(var(--medical-blue)) 0%, hsl(var(--medical-green)) 100%);
+            --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+            
+            /* Shadows & Effects */
+            --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+            --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+            --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
+            
+            /* Animations */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            --radius: 0.75rem;
         }
 
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f9fcff;
-            color: #222;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
             -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
         }
 
-        header {
-            background: var(--brand);
-            color: #fff;
-            padding: 14px 28px;
-            text-align: center;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        /* NEW AUTH SECTION STYLES */
-        .auth-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 50px 20px;
-            background-color: var(--light-gray);
-        }
-
-        .auth-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            width: 100%;
-            max-width: 500px;
+        * {
             box-sizing: border-box;
         }
 
-        .auth-header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* Header Styles */
+        .header {
+            background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)), hsl(var(--primary-glow)));
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .auth-header h1 {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--text-color);
-            margin: 0 0 5px 0;
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .auth-header p {
-            color: var(--dark-gray);
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
             margin: 0;
         }
-        
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            color: var(--primary-color);
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-        
-        .tab-switcher {
-            display: flex;
-            background-color: var(--light-gray);
-            border: 1px solid var(--medium-gray);
-            border-radius: 8px;
-            padding: 5px;
-            margin-bottom: 25px;
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
         }
 
-        .tab-btn {
-            width: 50%;
-            padding: 10px;
-            border: none;
-            background-color: transparent;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 500;
+        .nav {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: white;
+        }
+
+        .auth-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--dark-gray);
-        }
-
-        .tab-btn.active {
-            background-color: white;
-            color: var(--primary-color);
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            font-size: 14px;
             font-weight: 500;
-            color: var(--dark-gray);
-            margin-bottom: 5px;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(4px);
         }
-        
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--medium-gray);
-            border-radius: 8px;
-            font-size: 16px;
-            box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
+
+        .auth-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
         }
-        
-        .input-group input:focus,
-        .input-group select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 600px;
+            /* background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 50%, hsl(var(--medical-blue)) 100%); */
+            overflow: hidden;
+            
         }
-        
-        .grid-col-2 {
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+        }
+
+        .hero-bg-circle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-bg-circle:nth-child(1) {
+            top: 5rem;
+            left: 5rem;
+            width: 8rem;
+            height: 8rem;
+        }
+
+        .hero-bg-circle:nth-child(2) {
+            bottom: 5rem;
+            right: 5rem;
+            width: 6rem;
+            height: 6rem;
+            animation-delay: 1s;
+        }
+
+        .hero-bg-circle:nth-child(3) {
+            top: 50%;
+            left: 25%;
+            width: 4rem;
+            height: 4rem;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            min-height: 500px;
+        }
+
+        .hero-text {
+            /* color: white; */
+            color:hsl(var(--medical-blue));
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-subtitle {
+            display: inline-block;
+            background: rgba(199, 187, 187, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 1rem 0;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            /* color: rgba(255, 255, 255, 0.9); */
+            color:hsl(var(--medical-blue));
+            margin: 0 0 2rem 0;
+            max-width: 32rem;
+        }
+
+        .hero-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-highlight {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-highlight-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: hsl(var(--accent));
+            border-radius: 50%;
+        }
+
+        .hero-highlight-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.15);
+            color:hsl(var(--medical-blue));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.125rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(4px);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color:hsl(var(--medical-blue));
+            border: 1px solid white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.125rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-indicators {
+            display: flex;
+            gap: 0.75rem;
+            padding-top: 1rem;
+        }
+
+        .indicator {
+            width: 3rem;
+            height: 0.25rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .indicator.active {
+            background: white;
+        }
+
+        .hero-visual {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .hero-dashboard {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-icon {
+            width: 4rem;
+            height: 4rem;
+            /* background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--medical-green))); */
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color:hsl(var(--medical-blue));
+        }
+
+        .dashboard-title h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            /* color: white; */
+            color:hsl(var(--medical-blue));
+            margin: 0;
+        }
+
+        .dashboard-title p {
+            color:hsl(var(--medical-blue));
+            margin: 0;
+        }
+
+        .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 1rem;
         }
-        
-        .submit-btn {
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 15px;
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        .dashboard-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color:hsl(var(--medical-blue));
+            margin: 0;
+        }
+
+        .dashboard-label {
+            color:hsl(var(--medical-blue));
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .hero-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3rem;
+            height: 3rem;
+            /* background: rgba(255, 255, 255, 0.2); */
             border: none;
-            border-radius: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .submit-btn:hover {
-            background-color: #16a34a;
-        }
-        
-        .hidden {
-            display: none;
+            transition: var(--transition-smooth);
+            color:hsl(var(--medical-blue));
         }
 
-        /* NEWS */
+        .hero-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .hero-nav-btn.prev {
+            left: 1.5rem;
+        }
+
+        .hero-nav-btn.next {
+            right: 1.5rem;
+        }
+
+        /* News Section */
         .news-section {
-            padding: 64px 20px;
-            text-align: center;
-            background: var(--muted);
+            padding: 4rem 0;
+            background: hsl(var(--muted));
         }
 
-        .news-section h2 {
-            color: #023e8a;
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
             font-size: 2rem;
-            margin-bottom: 22px;
+            font-weight: 700;
+            color: hsl(var(--primary));
+            margin: 0 0 1rem 0;
+        }
+
+        .section-subtitle {
+            color: hsl(var(--muted-foreground));
+            font-size: 1.125rem;
+            max-width: 32rem;
+            margin: 0 auto;
         }
 
         .news-slider {
             position: relative;
-            max-width: 1100px;
+            max-width: 75rem;
             margin: 0 auto;
         }
 
-        .news-item {
+        .news-card {
+            background: hsl(var(--card));
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
             display: flex;
-            gap: 24px;
-            align-items: center;
-            justify-content: space-between;
-            background: #fff;
-            padding: 28px;
-            border-radius: 14px;
-            box-shadow: var(--card-shadow);
-            min-height: 420px;
+            flex-direction: column;
         }
 
-        .news-item img {
-            width: 46%;
-            height: 360px;
+        .news-image {
+            width: 100%;
+            height: 16rem;
             object-fit: cover;
-            border-radius: 10px;
-            flex: 0 0 46%;
         }
 
         .news-content {
-            width: 52%;
-            text-align: left;
-            padding: 6px 6px;
+            padding: 2rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .news-content h3 {
-            color: var(--brand);
-            font-size: 1.5rem;
-            margin: 0 0 12px;
-        }
-
-        .news-content p {
-            color: #444;
-            line-height: 1.6;
-            margin: 0 0 18px;
-            font-size: 1rem;
-        }
-
-        .news-content .read-btn {
+        .news-meta {
             display: inline-block;
-            background: var(--brand);
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            width: fit-content;
         }
 
-        .nav-btn {
+        .news-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
+            line-height: 1.3;
+            margin: 0 0 1rem 0;
+        }
+
+        .news-description {
+            color: hsl(var(--muted-foreground));
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .news-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 119, 182, 0.92);
-            border: 0;
-            color: #fff;
-            width: 48px;
-            height: 48px;
-            border-radius: 999px;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(2, 62, 138, 0.12);
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-50%) scale(1.03);
-        }
-
-        .prev-btn {
-            left: -18px;
-        }
-
-        .next-btn {
-            right: -18px;
-        }
-
-        /* FEATURES */
-        .features-section {
-            padding: 56px 20px;
-            background: #fff;
-            text-align: center;
-        }
-
-        .features-section h2 {
-            color: #023e8a;
-            font-size: 1.9rem;
-            margin-bottom: 18px;
-        }
-
-        .features-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
-            align-items: start;
-        }
-
-        .feature-card {
-            background: var(--muted);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: left;
-            box-shadow: 0 6px 18px rgba(3, 66, 110, 0.04);
-            min-height: 140px;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .feature-icon {
-            min-width: 54px;
-            min-height: 54px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--brand), var(--accent));
+            width: 3rem;
+            height: 3rem;
+            background: hsl(var(--primary) / 0.9);
+            border: none;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-weight: 700;
-            font-size: 20px;
-            box-shadow: 0 8px 20px rgba(2, 62, 138, 0.12);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        .feature-body h4 {
-            margin: 0 0 8px;
-            color: #023e8a;
-            font-size: 1.05rem;
+        .news-nav-btn:hover {
+            background: hsl(var(--primary));
+            transform: translateY(-50%) scale(1.1);
         }
 
-        .feature-body p {
+        .news-nav-btn.prev {
+            left: 1rem;
+        }
+
+        .news-nav-btn.next {
+            right: 1rem;
+        }
+
+        .news-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .news-indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: hsl(var(--primary) / 0.3);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .news-indicator.active {
+            background: hsl(var(--primary));
+            transform: scale(1.25);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 3.5rem 0;
+            background: hsl(var(--background));
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 75rem;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: hsl(var(--muted));
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            background: hsl(var(--card));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            min-width: 3.5rem;
+            min-height: 3.5rem;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px -8px hsl(var(--primary) / 0.4);
+        }
+
+        .feature-content h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: hsl(var(--primary));
+            margin: 0 0 0.5rem 0;
+        }
+
+        .feature-content p {
+            color: hsl(var(--muted-foreground));
             margin: 0;
-            color: #444;
-            line-height: 1.45;
-            font-size: 0.96rem;
+            line-height: 1.5;
         }
 
-        /* FOOTER */
-        footer {
-            background: #1a1a1a;
-            color: #fff;
-            padding: 50px 20px 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Footer */
+        .footer {
+            background: hsl(var(--primary));
+            color: white;
+            padding: 3rem 0 1.5rem 0;
         }
 
         .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: auto;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .footer-brand h2 {
-            color: #4CAF50;
-            margin-bottom: 10px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
         }
 
-        .footer-social h3,
-        .footer-links h3,
-        .footer-legal h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-            color: #ddd;
+        .footer-brand p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
         }
 
         .footer-social a {
-            margin: 0 10px 0 0;
-            font-size: 22px;
-            color: #fff;
-            transition: color 0.3s;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
         }
 
         .footer-social a:hover {
-            color: #4CAF50;
-        }
-
-        .footer-links ul,
-        .footer-legal ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-links ul li,
-        .footer-legal ul li {
-            margin-bottom: 8px;
-        }
-
-        .footer-links ul li a,
-        .footer-legal ul li a {
-            text-decoration: none;
-            color: #ccc;
-            transition: color 0.3s;
-        }
-
-        .footer-links ul li a:hover,
-        .footer-legal ul li a:hover {
-            color: #4CAF50;
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1.5rem;
             text-align: center;
-            margin-top: 40px;
-            border-top: 1px solid #333;
-            padding-top: 15px;
-            font-size: 14px;
-            color: #aaa;
         }
 
-        /* Responsive tweaks */
-        @media(max-width:900px) {
-            .news-item {
-                flex-direction: column;
-                min-height: auto;
-                padding: 20px;
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+
+        /* Auth Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: hsl(var(--card));
+            border-radius: 0.75rem;
+            padding: 2rem;
+            max-width: 28rem;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .modal-subtitle {
+            color: hsl(var(--muted-foreground));
+            margin: 0;
+        }
+
+        .tab-switcher {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: hsl(var(--muted));
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: hsl(var(--muted-foreground));
+        }
+
+        .tab-btn.active {
+            background: hsl(var(--card));
+            color: hsl(var(--primary));
+            font-weight: 600;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: hsl(var(--foreground));
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+        }
+
+        .form-select {
+            padding: 0.75rem;
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: hsl(var(--background));
+            transition: var(--transition-smooth);
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: hsl(var(--primary));
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .submit-btn:hover {
+            background: hsl(var(--primary) / 0.9);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav {
+                display: flex;
             }
 
-            .news-item img {
-                width: 100%;
-                height: 240px;
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+            }
+
+            .news-card {
+                flex-direction: row;
+            }
+
+            .news-image {
+                width: 50%;
+                height: 24rem;
             }
 
             .news-content {
-                width: 100%;
-                text-align: center;
+                width: 50%;
             }
 
-            .nav-btn.prev-btn {
-                left: 6px;
-                top: auto;
-                bottom: 12px;
-                transform: none;
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
             }
 
-            .nav-btn.next-btn {
-                right: 6px;
-                top: auto;
-                bottom: 12px;
-                transform: none;
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .news-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
     </style>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <header>Digital Health Record System</header>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Swastya Setu</h1>
+                    <p>Digital Health System</p>
+                </div>
+            </div>
 
-    <section class="auth-section">
-        <div class="auth-container">
-            <div class="auth-header">
-                <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                        clip-rule="evenodd" />
+            <nav class="nav">
+                <a href="#features">Features</a>
+                <a href="#news">Health News</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <button class="auth-btn" onclick="openAuthModal()">Login / Register</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg">
+            <div class="hero-bg-circle"></div>
+            <div class="hero-bg-circle"></div>
+            <div class="hero-bg-circle"></div>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-subtitle" id="hero-subtitle">Secure & Accessible</div>
+                    <h1 class="hero-title" id="hero-title">Digital Health Records Management</h1>
+                    <p class="hero-description" id="hero-description">
+                        Manage all your health records digitally with advanced security and easy accessibility from anywhere, anytime.
+                    </p>
+
+                    <div class="hero-highlights" id="hero-highlights">
+                        <div class="hero-highlight">
+                            <div class="hero-highlight-dot"></div>
+                            <span class="hero-highlight-text">Cloud Storage</span>
+                        </div>
+                        <div class="hero-highlight">
+                            <div class="hero-highlight-dot"></div>
+                            <span class="hero-highlight-text">24/7 Access</span>
+                        </div>
+                        <div class="hero-highlight">
+                            <div class="hero-highlight-dot"></div>
+                            <span class="hero-highlight-text">HIPAA Compliant</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="#" class="btn-primary" id="hero-cta">Get Started Today</a>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+
+                    <div class="hero-indicators">
+                        <button class="indicator active" onclick="setHeroSlide(0)"></button>
+                        <button class="indicator" onclick="setHeroSlide(1)"></button>
+                        <button class="indicator" onclick="setHeroSlide(2)"></button>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="hero-dashboard">
+                        <div class="dashboard-header">
+                            <div class="dashboard-icon">
+                                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                </svg>
+                            </div>
+                            <div class="dashboard-title">
+                                <h3>Health Dashboard</h3>
+                                <p>Real-time monitoring</p>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-grid">
+                            <div class="dashboard-card">
+                                <div class="dashboard-value">98.6°F</div>
+                                <div class="dashboard-label">Body Temp</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="dashboard-value">120/80</div>
+                                <div class="dashboard-label">Blood Pressure</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="dashboard-value">72 BPM</div>
+                                <div class="dashboard-label">Heart Rate</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="dashboard-value">7.5h</div>
+                                <div class="dashboard-label">Sleep</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="hero-nav-btn prev" onclick="prevHeroSlide()">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
-                <h1>Digital Health Record System</h1>
-                <p>Comprehensive healthcare management system</p>
-            </div>
-
-            <div class="tab-switcher">
-                <button id="signInTab" class="tab-btn active">Sign In</button>
-                <button id="signUpTab" class="tab-btn">Sign Up</button>
-            </div>
-
-            <div class="form-container">
-                <form id="signInForm" class="auth-form">
-                     <div class="input-group">
-                        <label for="signInUserType">Login As</label>
-                        <select id="signInUserType">
-                            <option value="patient">Patient</option>
-                            <option value="worker">Health Worker</option>
-                            <option value="admin">Admin / Hospital</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter your password" required>
-                    </div>
-                    <button type="submit" class="submit-btn">Sign In</button>
-                </form>
-
-                <form id="signUpForm" class="auth-form hidden">
-                    <div class="grid-col-2">
-                        <div class="input-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" placeholder="First name">
-                        </div>
-                        <div class="input-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" placeholder="Last name">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="userType">Register As</label>
-                        <select id="userType">
-                            <option value="patient">Patient</option>
-                            <option value="worker">Health Worker</option>
-                            <option value="hospital">Hospital / Admin</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="signUpEmail">Email</label>
-                        <input type="email" id="signUpEmail" placeholder="Enter your email">
-                    </div>
-
-                    <div id="patientFields">
-                        <div class="input-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="Enter your phone number">
-                        </div>
-                        <div class="input-group">
-                            <label for="aadhaar">Aadhaar Number</label>
-                            <input type="text" id="aadhaar" placeholder="Enter your Aadhaar number">
-                        </div>
-                    </div>
-                    <div id="workerFields" class="hidden">
-                        <div class="input-group">
-                            <label for="license">License Number</label>
-                            <input type="text" id="license" placeholder="Enter your license number">
-                        </div>
-                    </div>
-                    <div id="hospitalFields" class="hidden">
-                        <div class="input-group">
-                            <label for="hospitalLicense">License Number</label>
-                            <input type="text" id="hospitalLicense" placeholder="Enter your license number">
-                        </div>
-                        <div class="input-group">
-                            <label for="hospitalName">Hospital Name</label>
-                            <input type="text" id="hospitalName" placeholder="Enter hospital name">
-                        </div>
-                    </div>
-
-                    <div class="grid-col-2">
-                        <div class="input-group">
-                            <label for="signUpPassword">Password</label>
-                            <input type="password" id="signUpPassword" placeholder="Password">
-                        </div>
-                        <div class="input-group">
-                            <label for="confirmPassword">Confirm</label>
-                            <input type="password" id="confirmPassword" placeholder="Confirm">
-                        </div>
-                    </div>
-                    <button type="submit" class="submit-btn">Create Account</button>
-                </form>
-            </div>
+            </button>
+            <button class="hero-nav-btn next" onclick="nextHeroSlide()">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
         </div>
     </section>
 
-    <section class="news-section">
-        <h2>Latest Medical News</h2>
-        <div class="news-slider" id="newsSlider">
-            <div class="news-item" id="news-1">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop"
-                    alt="Diabetes guidelines">
-                <div class="news-content">
-                    <h3>WHO Issues New Guidelines on Diabetes</h3>
-                    <p>New global standards recommend lifestyle changes and improved access to insulin for patients
-                        worldwide. The initiative aims to reduce complications and improve long-term outcomes.</p>
-                    <a class="read-btn" href="#">Read More</a>
-                </div>
+    <!-- News Section -->
+    <section id="news" class="news-section">
+        <div class="news-container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Medical News</h2>
+                <p class="section-subtitle">
+                    Stay updated with the latest developments in healthcare and medical research
+                </p>
             </div>
-            <div class="news-item" id="news-2" style="display:none;">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
-                    alt="AI in healthcare">
-                <div class="news-content">
-                    <h3>AI in Healthcare is Growing Rapidly</h3>
-                    <p>Hospitals adopt AI for diagnosis, improving accuracy and reducing waiting times. Experts believe
-                        AI can revolutionize patient monitoring and personalized treatments.</p>
-                    <a class="read-btn" href="#">Read More</a>
-                </div>
-            </div>
-            <div class="news-item" id="news-3" style="display:none;">
-                <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=1974&auto=format&fit=crop"
-                    alt="COVID booster">
-                <div class="news-content">
-                    <h3>COVID-19 Booster Campaign Launched</h3>
-                    <p>Health departments urge vulnerable populations to get the latest vaccine booster shots to
-                        strengthen immunity against emerging variants and protect high-risk groups.</p>
-                    <a class="read-btn" href="#">Read More</a>
-                </div>
-            </div>
-            <button class="nav-btn prev-btn" onclick="prevNews()" aria-label="Previous">&#10094;</button>
-            <button class="nav-btn next-btn" onclick="nextNews()" aria-label="Next">&#10095;</button>
-        </div>
-    </section>
 
-    <section class="features-section">
-        <h2>Platform Features</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <div class="feature-body">
-                    <h4>Multilingual Website</h4>
-                    <p>Supports multiple languages for better accessibility.</p>
+            <div class="news-slider">
+                <div class="news-card" id="news-card">
+                    <img id="news-image" class="news-image" 
+                         src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" 
+                         alt="WHO Issues New Guidelines on Diabetes">
+                    <div class="news-content">
+                        <div class="news-meta" id="news-meta">5 min read</div>
+                        <h3 class="news-title" id="news-title">WHO Issues New Guidelines on Diabetes</h3>
+                        <p class="news-description" id="news-description">
+                            New global standards recommend lifestyle changes and improved access to insulin for patients worldwide. The initiative aims to reduce complications and improve long-term outcomes.
+                        </p>
+                        <a href="#" class="btn-primary" style="width: fit-content;">Read More</a>
+                    </div>
                 </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📁</div>
-                <div class="feature-body">
-                    <h4>Portable Health Records</h4>
-                    <p>Secure, cloud-backed medical records that can be accessed from anywhere.</p>
-                </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💳</div>
-                <div class="feature-body">
-                    <h4>Portable Digital Health Card</h4>
-                    <p>A concise digital health card for fast access during emergencies.</p>
-                </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <div class="feature-body">
-                    <h4>AI & Preventive Healthcare</h4>
-                    <p>AI-enabled analytics to detect risk patterns and provide recommendations.</p>
+
+                <button class="news-nav-btn prev" onclick="prevNews()">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button class="news-nav-btn next" onclick="nextNews()">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+
+                <div class="news-indicators">
+                    <button class="news-indicator active" onclick="setNewsSlide(0)"></button>
+                    <button class="news-indicator" onclick="setNewsSlide(1)"></button>
+                    <button class="news-indicator" onclick="setNewsSlide(2)"></button>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">Platform Features</h2>
+                <p class="section-subtitle">
+                    Comprehensive healthcare management tools designed for modern digital health needs
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-content">
+                        <h4>Multilingual Website</h4>
+                        <p>Supports multiple languages for better accessibility across diverse populations.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <div class="feature-content">
+                        <h4>Portable Health Records</h4>
+                        <p>Secure, cloud-backed medical records that can be accessed from anywhere, anytime.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <div class="feature-content">
+                        <h4>Portable Digital Health Card</h4>
+                        <p>A concise digital health card for fast access during emergencies and routine visits.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-content">
+                        <h4>AI & Preventive Healthcare</h4>
+                        <p>AI-enabled analytics to detect risk patterns and provide personalized health recommendations.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h4>Advanced Security</h4>
+                        <p>End-to-end encryption and HIPAA compliance to ensure your health data stays private.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h4>Mobile First Design</h4>
+                        <p>Responsive design optimized for smartphones, tablets, and desktop devices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="footer-container">
-            <div class="footer-brand">
-                <h2>HealthCare</h2>
-                <p>Your trusted partner in digital healthcare solutions.</p>
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-icon">
+                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Swastya Setu</h2>
+                            <p>Digital Health System</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Your trusted partner in digital healthcare solutions, making healthcare accessible, secure, and efficient.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Site Map</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#news">Health News</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">HIPAA Compliance</a></li>
+                        <li><a href="#">Data Security</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Follow Us</h3>
+                    <div class="footer-social">
+                        <a href="#">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.222.085.343-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.748-1.378 0 0-.599 2.282-.744 2.840-.282 1.084-1.064 2.456-1.549 3.235C9.584 23.815 10.77 24.001 12.017 24.001c6.624 0 11.99-5.367 11.99-12.014C24.007 5.367 18.641.001 12.017.001z"/>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.042 23.648c-7.813 0-12.042-4.876-12.042-11.171 0-6.727 4.762-12.125 13.276-12.125 6.214 0 10.959 4.876 10.959 9.48 0 2.739-1.937 4.805-4.351 4.805-1.33 0-1.938-.947-1.938-2.284 0-1.33.947-2.284 1.938-2.284 1.33 0 1.938.947 1.938 2.284 0 .947-.607 1.54-1.937 1.54-2.284 0-3.615-2.284-3.615-5.023 0-4.284 2.667-6.835 6.282-6.835 3.008 0 5.292 1.54 5.292 4.542 0 3.615-2.284 6.282-5.292 6.282z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; margin: 0 0 0.25rem 0;">Emergency Support</p>
+                        <p style="font-weight: 600; margin: 0 0 0.25rem 0;">24/7 Healthcare Helpline</p>
+                        <p style="color: hsl(var(--accent)); font-weight: 700; margin: 0;">1-800-HEALTH</p>
+                    </div>
+                </div>
             </div>
-            <div class="footer-social">
-                <h3>Follow Us</h3>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+
+            <div class="footer-bottom">
+                <p>© 2025 Swastya Setu Digital Health System. All rights reserved.</p>
             </div>
-            <div class="footer-links">
-                <h3>Site Map</h3>
-                <ul>
-                    <li><a href="#">Homepage</a></li>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-legal">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 HealthCare. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Digital Health Record System</h2>
+                <p class="modal-subtitle">Comprehensive healthcare management system</p>
+            </div>
+
+            <div class="tab-switcher">
+                <button class="tab-btn active" id="signinTab" onclick="switchTab('signin')">Sign In</button>
+                <button class="tab-btn" id="signupTab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <div id="signinForm" class="auth-form">
+                <div class="form-group">
+                    <label class="form-label">Login As</label>
+                    <select class="form-select" id="signinUserType">
+                        <option value="patient">Patient</option>
+                        <option value="worker">Health Worker</option>
+                        <option value="admin">Admin / Hospital</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="submit-btn" onclick="handleSignIn(event)">Sign In</button>
+            </div>
+
+            <div id="signupForm" class="auth-form hidden">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-input" placeholder="First name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-input" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Register As</label>
+                    <select class="form-select" id="signupUserType" onchange="handleUserTypeChange()">
+                        <option value="patient">Patient</option>
+                        <option value="worker">Health Worker</option>
+                        <option value="hospital">Hospital / Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email">
+                </div>
+                
+                <div id="patientFields">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Aadhaar Number</label>
+                        <input type="text" class="form-input" placeholder="Enter your Aadhaar number">
+                    </div>
+                </div>
+                
+                <div id="workerFields" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">License Number</label>
+                        <input type="text" class="form-input" placeholder="Enter your license number">
+                    </div>
+                </div>
+                
+                <div id="hospitalFields" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">License Number</label>
+                        <input type="text" class="form-input" placeholder="Enter your license number">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hospital Name</label>
+                        <input type="text" class="form-input" placeholder="Enter hospital name">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm</label>
+                        <input type="password" class="form-input" placeholder="Confirm">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" onclick="handleSignUp()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // --- Elements ---
-            const signInTab = document.getElementById('signInTab');
-            const signUpTab = document.getElementById('signUpTab');
-            const signInForm = document.getElementById('signInForm');
-            const signUpForm = document.getElementById('signUpForm');
-            const userTypeSelect = document.getElementById('userType');
+        // Hero slides data
+        const heroSlides = [
+            {
+                subtitle: "Secure & Accessible",
+                title: "Digital Health Records Management",
+                description: "Manage all your health records digitally with advanced security and easy accessibility from anywhere, anytime.",
+                cta: "Get Started Today",
+                highlights: ["Cloud Storage", "24/7 Access", "HIPAA Compliant"]
+            },
+            {
+                subtitle: "Smart Healthcare",
+                title: "AI-Powered Health Analytics",
+                description: "Leverage artificial intelligence to get insights about your health patterns and receive personalized recommendations.",
+                cta: "Explore AI Features",
+                highlights: ["Predictive Analysis", "Health Insights", "Risk Assessment"]
+            },
+            {
+                subtitle: "Emergency Ready",
+                title: "Portable Digital Health Card",
+                description: "Quick access to critical health information during emergencies with our portable digital health card system.",
+                cta: "Create Health Card",
+                highlights: ["Emergency Access", "QR Code", "Instant Info"]
+            }
+        ];
+
+        // News data
+        const newsItems = [
+            {
+                title: "WHO Issues New Guidelines on Diabetes",
+                description: "New global standards recommend lifestyle changes and improved access to insulin for patients worldwide. The initiative aims to reduce complications and improve long-term outcomes.",
+                image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
+                readTime: "5 min read"
+            },
+            {
+                title: "AI in Healthcare is Growing Rapidly",
+                description: "Hospitals adopt AI for diagnosis, improving accuracy and reducing waiting times. Experts believe AI can revolutionize patient monitoring and personalized treatments.",
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
+                readTime: "7 min read"
+            },
+            {
+                title: "COVID-19 Booster Campaign Launched",
+                description: "Health departments urge vulnerable populations to get the latest vaccine booster shots to strengthen immunity against emerging variants and protect high-risk groups.",
+                image: "https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=1974&auto=format&fit=crop",
+                readTime: "4 min read"
+            }
+        ];
+
+        let currentHeroSlide = 0;
+        let currentNewsSlide = 0;
+        let heroTimer;
+
+        // Hero functions
+        function updateHeroSlide() {
+            const slide = heroSlides[currentHeroSlide];
+            document.getElementById('hero-subtitle').textContent = slide.subtitle;
+            document.getElementById('hero-title').textContent = slide.title;
+            document.getElementById('hero-description').textContent = slide.description;
+            document.getElementById('hero-cta').textContent = slide.cta;
+            
+            const highlightsContainer = document.getElementById('hero-highlights');
+            highlightsContainer.innerHTML = '';
+            slide.highlights.forEach(highlight => {
+                const highlightDiv = document.createElement('div');
+                highlightDiv.className = 'hero-highlight';
+                highlightDiv.innerHTML = `
+                    <div class="hero-highlight-dot"></div>
+                    <span class="hero-highlight-text">${highlight}</span>
+                `;
+                highlightsContainer.appendChild(highlightDiv);
+            });
+
+            // Update indicators
+            document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentHeroSlide);
+            });
+        }
+
+        function setHeroSlide(index) {
+            currentHeroSlide = index;
+            updateHeroSlide();
+            resetHeroTimer();
+        }
+
+        function nextHeroSlide() {
+            currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+            updateHeroSlide();
+            resetHeroTimer();
+        }
+
+        function prevHeroSlide() {
+            currentHeroSlide = (currentHeroSlide - 1 + heroSlides.length) % heroSlides.length;
+            updateHeroSlide();
+            resetHeroTimer();
+        }
+
+        function resetHeroTimer() {
+            clearInterval(heroTimer);
+            heroTimer = setInterval(nextHeroSlide, 5000);
+        }
+
+        // News functions
+        function updateNewsSlide() {
+            const slide = newsItems[currentNewsSlide];
+            document.getElementById('news-image').src = slide.image;
+            document.getElementById('news-image').alt = slide.title;
+            document.getElementById('news-meta').textContent = slide.readTime;
+            document.getElementById('news-title').textContent = slide.title;
+            document.getElementById('news-description').textContent = slide.description;
+
+            // Update indicators
+            document.querySelectorAll('.news-indicator').forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentNewsSlide);
+            });
+        }
+
+        function setNewsSlide(index) {
+            currentNewsSlide = index;
+            updateNewsSlide();
+        }
+
+        function nextNews() {
+            currentNewsSlide = (currentNewsSlide + 1) % newsItems.length;
+            updateNewsSlide();
+        }
+
+        function prevNews() {
+            currentNewsSlide = (currentNewsSlide - 1 + newsItems.length) % newsItems.length;
+            updateNewsSlide();
+        }
+
+        // Auth modal functions
+        function openAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function switchTab(tab) {
+            const signinTab = document.getElementById('signinTab');
+            const signupTab = document.getElementById('signupTab');
+            const signinForm = document.getElementById('signinForm');
+            const signupForm = document.getElementById('signupForm');
+
+            if (tab === 'signin') {
+                signinTab.classList.add('active');
+                signupTab.classList.remove('active');
+                signinForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            } else {
+                signupTab.classList.add('active');
+                signinTab.classList.remove('active');
+                signupForm.classList.remove('hidden');
+                signinForm.classList.add('hidden');
+            }
+        }
+
+        function handleUserTypeChange() {
+            const userType = document.getElementById('signupUserType').value;
             const patientFields = document.getElementById('patientFields');
             const workerFields = document.getElementById('workerFields');
             const hospitalFields = document.getElementById('hospitalFields');
-            const signInUserType = document.getElementById('signInUserType');
-            
-            // --- Tab Switching Logic ---
-            signInTab.addEventListener('click', () => {
-                signInTab.classList.add('active');
-                signUpTab.classList.remove('active');
-                signInForm.classList.remove('hidden');
-                signUpForm.classList.add('hidden');
-            });
 
-            signUpTab.addEventListener('click', () => {
-                signUpTab.classList.add('active');
-                signInTab.classList.remove('active');
-                signUpForm.classList.remove('hidden');
-                signInForm.classList.add('hidden');
-            });
-            
-            // --- Conditional Fields for Sign Up ---
-            userTypeSelect.addEventListener('change', (event) => {
-                const selectedType = event.target.value;
-                patientFields.classList.add('hidden');
-                workerFields.classList.add('hidden');
-                hospitalFields.classList.add('hidden');
+            patientFields.classList.add('hidden');
+            workerFields.classList.add('hidden');
+            hospitalFields.classList.add('hidden');
 
-                if (selectedType === 'patient') {
-                    patientFields.classList.remove('hidden');
-                } else if (selectedType === 'worker') {
-                    workerFields.classList.remove('hidden');
-                } else if (selectedType === 'hospital') {
-                    hospitalFields.classList.remove('hidden');
-                }
-            });
-
-            // --- REDIRECTION LOGIC ---
-
-            // Handle Sign-In Form Submission
-            signInForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from actually submitting
-                const role = signInUserType.value;
-                
-                 // Placeholder for actual login
-
-                if (role === 'patient') {
-                    window.location.href = 'patient_dashboard.html';
-                } else if (role === 'worker') {
-                    window.location.href = 'doctor_dashboard.html';
-                } else if (role === 'admin') {
-                    window.location.href = 'main.html';
-                }
-            });
-
-            // Handle Sign-Up Form Submission
-            signUpForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from actually submitting
-                const role = userTypeSelect.value;
-                
-               // Placeholder
-
-                if (role === 'patient') {
-                    window.location.href = 'patient_dashboard.html';
-                } else if (role === 'worker') {
-                    window.location.href = 'worker_dashboard.html';
-                } else if (role === 'hospital') {
-                    window.location.href = 'admin_dashboard.html'; // Assuming hospital redirects to admin page
-                }
-            });
-
-            // --- News Carousel Logic ---
-            let currentNews = 1;
-            const totalNews = 3;
-
-            function showNews(index) {
-                for (let i = 1; i <= totalNews; i++) {
-                    const el = document.getElementById("news-" + i);
-                    if (!el) continue;
-                    el.style.display = i === index ? "flex" : "none";
-                }
+            if (userType === 'patient') {
+                patientFields.classList.remove('hidden');
+            } else if (userType === 'worker') {
+                workerFields.classList.remove('hidden');
+            } else if (userType === 'hospital') {
+                hospitalFields.classList.remove('hidden');
             }
+        }
 
-            window.nextNews = function () {
-                currentNews = currentNews === totalNews ? 1 : currentNews + 1;
-                showNews(currentNews);
-            }
+        function handleSignIn(event) {
+        event.preventDefault();  // prevent normal form submission
 
-            window.prevNews = function () {
-                currentNews = currentNews === 1 ? totalNews : currentNews - 1;
-                showNews(currentNews);
+        const userType = document.getElementById("signinUserType").value;
+        console.log("User type selected:", userType);
+        if (userType === "worker") {
+            window.location.href = "doctor_dashboard.html";
+        } else if (userType === "patient") {
+            window.location.href = "patient_dashboard.html";
+        } else if (userType === "admin") {
+            window.location.href = "main.html";
+        }
+    }
+
+        function handleSignUp() {
+            // Add sign up logic here
+            closeAuthModal();
+            alert('Sign up functionality would be implemented here');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAuthModal();
             }
-            
-            showNews(1);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateHeroSlide();
+            updateNewsSlide();
+            resetHeroTimer();
         });
     </script>
 </body>
